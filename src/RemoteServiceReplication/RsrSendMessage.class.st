@@ -60,7 +60,7 @@ RsrSendMessage >> executeFor: aConnection [
 	"Must keep a strong reference to each service until the roots are referenced."
 	[ 
 	[ 
-	self _registerDebugActionHandler.
+	self _registerDebugActionBlock.
 	servicesStrongly := self reifyAllIn: aConnection.
 	receiver := self receiverReference resolve: aConnection.
 	selector := self selectorReference resolve: aConnection.

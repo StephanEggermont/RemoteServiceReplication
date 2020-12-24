@@ -1,7 +1,7 @@
 Extension { #name : 'RsrSendMessage' }
 
 { #category : '*remoteservicereplication-gemstone' }
-RsrSendMessage >> _registerDebugActionHandler [
-	GsProcess _currentProcess
-		debugActionHandler: [ :ex | RsrUnhandledException signal: ex ]
+RsrSendMessage >> _registerDebugActionBlock [
+	GsProcess _current
+		debugActionBlock: [ :ex | RsrUnhandledException signal: ex ]
 ]
