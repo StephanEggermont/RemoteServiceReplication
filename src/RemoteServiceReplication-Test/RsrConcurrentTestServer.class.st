@@ -41,14 +41,14 @@ RsrConcurrentTestServer >> semaphore: aSemaphore [
 	semaphore := aSemaphore
 ]
 
-{ #category : 'accessing' }
-RsrConcurrentTestServer >> stashedProcess [
-
-	^stashedProcess
-]
-
 { #category : 'actions' }
 RsrConcurrentTestServer >> stashProcess [
 
 	stashedProcess := Processor activeProcess
+]
+
+{ #category : 'accessing' }
+RsrConcurrentTestServer >> stashedProcess [
+
+	^stashedProcess
 ]

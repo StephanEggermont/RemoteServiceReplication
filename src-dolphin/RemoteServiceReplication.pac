@@ -17,6 +17,7 @@ package classNames
 	add: #RsrEncoder;
 	add: #RsrPendingMessage;
 	add: #RsrCommandSink;
+	add: #RsrMessagingCommand;
 	add: #RsrServiceFactoryServer;
 	add: #RsrLogSink;
 	add: #RsrSendMessage;
@@ -35,7 +36,6 @@ package classNames
 	add: #RsrCustomSink;
 	add: #RsrInMemoryConnectionSpecification;
 	add: #RsrConnection;
-	add: #RsrCycleDetected;
 	add: #RsrSnapshotAnalysis;
 	add: #RsrCodec;
 	add: #RsrNumericSpigot;
@@ -50,8 +50,8 @@ package classNames
 	add: #RsrTranscriptSink;
 	add: #RsrInternalSocketConnectionSpecification;
 	add: #RsrConnectionSpecification;
-	add: #RsrRemoteError;
 	add: #RsrSocketChannelLoop;
+	add: #RsrRemoteError;
 	add: #RsrDecoder;
 	add: #RsrThreadSafeNumericSpigot;
 	add: #RsrDecodingRaisedException;
@@ -233,7 +233,7 @@ RsrServiceSnapshot comment: 'RsrServiceSnapshotWhen a SendMessage or DeliverRe
 
 RsrObject
 	subclass: #RsrSnapshotAnalysis
-	instanceVariableNames: 'roots snapshots inFlight connection'
+	instanceVariableNames: 'roots snapshots connection analyzedObjects'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -324,15 +324,6 @@ RsrAbstractReason
 	classInstanceVariableNames: ''!
 !RsrDecodingRaisedException categoriesForClass!RemoteServiceReplication! !
 
-RsrCommand
-	subclass: #RsrDeliverResponse
-	instanceVariableNames: 'transaction responseReference snapshots'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-RsrDeliverResponse comment: 'No class-specific documentation for RsrDeliverResponse, hierarchy is:Object  RsrObject    RsrCommand( encoding)      RsrDeliverResponse( transaction response roots retainList)'!
-!RsrDeliverResponse categoriesForClass!RemoteServiceReplication! !
-
 RsrCodec
 	subclass: #RsrEncoder
 	instanceVariableNames: ''
@@ -358,6 +349,14 @@ RsrConnectionSpecification
 	classInstanceVariableNames: ''!
 !RsrInternalConnectionSpecification categoriesForClass!RemoteServiceReplication! !
 
+RsrCommand
+	subclass: #RsrMessagingCommand
+	instanceVariableNames: 'snapshots transaction'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+!RsrMessagingCommand categoriesForClass!RemoteServiceReplication! !
+
 RsrService
 	subclass: #RsrReasonService
 	instanceVariableNames: ''
@@ -375,15 +374,6 @@ RsrCommand
 	classInstanceVariableNames: ''!
 RsrReleaseServices comment: 'No class-specific documentation for RsrReleaseServices, hierarchy is:Object  RsrObject    RsrCommand( encoding)      RsrReleaseServices( oids)'!
 !RsrReleaseServices categoriesForClass!RemoteServiceReplication! !
-
-RsrCommand
-	subclass: #RsrSendMessage
-	instanceVariableNames: 'transaction receiverReference selectorReference argumentReferences snapshots'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-RsrSendMessage comment: 'No class-specific documentation for RsrSendMessage, hierarchy is:Object  RsrObject    RsrCommand( encoding)      RsrSendMessage( transaction receiver selector arguments retainList)'!
-!RsrSendMessage categoriesForClass!RemoteServiceReplication! !
 
 RsrService
 	subclass: #RsrServiceFactory
@@ -436,13 +426,14 @@ RsrSocketConnectionSpecification
 RsrAcceptConnection comment: 'This class is responsible to listen for an incoming RsrConnection connection. Once a Socket has established, an RsrConnection is created and returned via the #connect message.The following will wait for a connection on port 51820. Once a socket connection is accepted, it will stop listening on the provided port. The established socket is then used in the creation of an RsrConnection. The new RsrConnection is returned as a result of #connect.| acceptor |acceptor := RsrAcceptConnection port: 51820.^acceptor connect'!
 !RsrAcceptConnection categoriesForClass!RemoteServiceReplication! !
 
-RsrError
-	subclass: #RsrCycleDetected
-	instanceVariableNames: 'object'
+RsrMessagingCommand
+	subclass: #RsrDeliverResponse
+	instanceVariableNames: 'responseReference'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-!RsrCycleDetected categoriesForClass!RemoteServiceReplication! !
+RsrDeliverResponse comment: 'No class-specific documentation for RsrDeliverResponse, hierarchy is:Object  RsrObject    RsrCommand( encoding)      RsrDeliverResponse( transaction response roots retainList)'!
+!RsrDeliverResponse categoriesForClass!RemoteServiceReplication! !
 
 RsrInternalConnectionSpecification
 	subclass: #RsrInMemoryConnectionSpecification
@@ -484,6 +475,15 @@ RsrReasonService
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 !RsrRemoteException categoriesForClass!RemoteServiceReplication! !
+
+RsrMessagingCommand
+	subclass: #RsrSendMessage
+	instanceVariableNames: 'receiverReference selectorReference argumentReferences'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+RsrSendMessage comment: 'No class-specific documentation for RsrSendMessage, hierarchy is:Object  RsrObject    RsrCommand( encoding)      RsrSendMessage( transaction receiver selector arguments retainList)'!
+!RsrSendMessage categoriesForClass!RemoteServiceReplication! !
 
 RsrServiceFactory
 	subclass: #RsrServiceFactoryClient
@@ -636,9 +636,6 @@ services: aListpromise: aPromise	^self new		services: aList;		promise: aPro
 
 !RsrStream class methodsFor!
 on: aStream	^self new		stream: aStream;		yourself! !
-
-!RsrCycleDetected class methodsFor!
-signal: anObject	^self new		object: anObject;		signal! !
 
 !RsrRemoteException class methodsFor!
 clientClassName	^#RsrRemoteExceptionClient! !
@@ -1124,22 +1121,10 @@ write: aMessage	self action value: aMessage! !
 selectorReference: aSymbolReference	selectorReference := aSymbolReference! !
 
 !RsrSendMessage methodsFor!
-transaction: anObject	transaction := anObject! !
-
-!RsrSendMessage methodsFor!
-snapshots	^snapshots! !
-
-!RsrSendMessage methodsFor!
-snapshots: anArrayOfSnapshots	snapshots := anArrayOfSnapshots! !
-
-!RsrSendMessage methodsFor!
-reifyMessageSendIn: aConnection	| services receiver selector arguments |	services := self snapshots collect: [:each | each reifyIn: aConnection].	receiver := self receiverReference resolve: aConnection.	selector := self selectorReference resolve: aConnection.	arguments := self argumentReferences collect: [:each | each resolve: aConnection].	^RsrMessageSend		receiver: receiver		selector: selector		arguments: arguments! !
-
-!RsrSendMessage methodsFor!
 logException: anExceptionto: aLog	| message |	message := String		streamContents:			[:stream |			stream				print: self receiverReference;				nextPutAll: '>>';				print: self selectorReference;				nextPutAll: ' due to: ';				nextPutAll: anException description].	aLog error: message! !
 
 !RsrSendMessage methodsFor!
-executeFor: aConnection	| resolver services receiver selector arguments messageSend |	resolver := RsrRemotePromiseResolver		for: self		over: aConnection.	[[services := self snapshots collect: [:each | each reifyIn: aConnection].	receiver := self receiverReference resolve: aConnection.	selector := self selectorReference resolve: aConnection.	arguments := self argumentReferences collect: [:each | each resolve: aConnection].	resolver addRoot: receiver. "Ensure we always send back the receiver -- this ensures sending a message results in by-directional syncing."	messageSend := RsrMessageSend		receiver: receiver		selector: selector		arguments: arguments.	self		perform: messageSend		answerUsing: resolver]		on: self unhandledExceptionClass		do:			[:ex |			resolver break: (RsrRemoteException from: ex).			ex return]]		ensure:			[resolver hasResolved				ifFalse: [resolver break: 'Message send terminated without a result']]! !
+executeFor: aConnection	| resolver servicesStrongly receiver selector arguments messageSend |	resolver := RsrRemotePromiseResolver for: self over: aConnection.	"Must keep a strong reference to each service until the roots are referenced."	[ 	[ 	servicesStrongly := self reifyAllIn: aConnection.	receiver := self receiverReference resolve: aConnection.	selector := self selectorReference resolve: aConnection.	arguments := self argumentReferences collect: [ :each | 		             each resolve: aConnection ].	"receiver and arguments should now be the roots of the service graph, discard strong references."	servicesStrongly := nil.	resolver addRoot: receiver. "Ensure we always send back the receiver -- this ensures sending a message results in by-directional syncing."	messageSend := RsrMessageSend		               receiver: receiver		               selector: selector		               arguments: arguments.	self perform: messageSend answerUsing: resolver ]		on: self unhandledExceptionClass		do: [ :ex | 			resolver break: (RsrRemoteException from: ex).			ex return ] ] ensure: [ 		resolver hasResolved ifFalse: [ 			resolver break: 'Message send terminated without a result' ] ]! !
 
 !RsrSendMessage methodsFor!
 encode: aStreamusing: anEncoder	anEncoder		encodeSendMessage: self		onto: aStream! !
@@ -1148,13 +1133,10 @@ encode: aStreamusing: anEncoder	anEncoder		encodeSendMessage: self		onto: a
 selectorReference	^selectorReference! !
 
 !RsrSendMessage methodsFor!
-transaction	^ transaction! !
+unhandledExceptionClass	"Temporarily, use Error until we have appropriate GemStone hooks."	^Error! !
 
 !RsrSendMessage methodsFor!
 perform: aMessageSendanswerUsing: aResolver	[aResolver fulfill: aMessageSend perform]		on: self unhandledExceptionClass		do:			[:ex | | debugResult |			debugResult := [aMessageSend receiver									debug: ex									raisedDuring: aMessageSend									answerUsing: aResolver]									on: self unhandledExceptionClass									do:										[:debugEx | 										aResolver break: (RsrRemoteException from: debugEx).										ex return].			aResolver hasResolved				ifTrue: [ex return]				ifFalse:					[ex isResumable						ifTrue: [ex resume: debugResult]						ifFalse:							[aResolver break: (RsrRemoteException from: ex).							ex return]]]! !
-
-!RsrSendMessage methodsFor!
-unhandledExceptionClass	"Temporarily, use Error until we have appropriate GemStone hooks."	^Error! !
 
 !RsrSendMessage methodsFor!
 reportOn: aLog	aLog debug: 'RsrSendMessage(', self receiverReference asString, '>>', self selectorReference asString, ')'! !
@@ -1189,6 +1171,21 @@ removeKey: anRsrId	^mutex critical: [map removeKey: anRsrId ifAbsent: [nil]]! 
 !RsrThreadSafeDictionary methodsFor!
 at: aKeyput: aValue	mutex critical: [map at: aKey put: aValue].	^aValue! !
 
+!RsrMessagingCommand methodsFor!
+snapshots	^snapshots! !
+
+!RsrMessagingCommand methodsFor!
+transaction	^ transaction! !
+
+!RsrMessagingCommand methodsFor!
+reifyAllIn: aConnection	| servicesStrongly |	"Must keep a strong reference to each service until we're sure a parent service is reified"	servicesStrongly := snapshots collect: [ :each | 		                    (each instanceIn: aConnection) preUpdate ].	snapshots do: [ :each | each reifyIn: aConnection ].	servicesStrongly do: [ :each | each postUpdate ].	^ servicesStrongly "Sender must keep a strong reference until the root is anchored."! !
+
+!RsrMessagingCommand methodsFor!
+snapshots: anArrayOfSnapshots	snapshots := anArrayOfSnapshots! !
+
+!RsrMessagingCommand methodsFor!
+transaction: anObject	transaction := anObject! !
+
 !RsrServiceSnapshot methodsFor!
 snapshot: aService	sid := aService _id.	targetClassName := aService class isClientClass		ifTrue: [aService class serverClassName]		ifFalse: [aService class clientClassName].	slots := OrderedCollection new.	RsrServiceSnapshot		reflectedVariablesFor: aService		do: [:each | slots add: (RsrReference from: each)]! !
 
@@ -1220,7 +1217,7 @@ shouldCreateServer	^self targetServiceType == #server! !
 sid	^sid! !
 
 !RsrServiceSnapshot methodsFor!
-reifyIn: aConnection	| instance referenceStream |	instance := self instanceIn: aConnection.	(self class reflectedVariablesFor: instance) size = slots size		ifFalse: [self error: 'Incorrected encoded instance detected'].	referenceStream := ReadStream on: slots.	instance preUpdate.	self class		reflectedVariableIndicesFor: instance		do: [:index | instance instVarAt: index put: (referenceStream next resolve: aConnection)].	instance postUpdate.	^instance! !
+reifyIn: aConnection	| instance referenceStream |	"Instance should already be registered"	instance := self instanceIn: aConnection.	(self class reflectedVariablesFor: instance) size = slots size 		ifFalse: [ self error: 'Incorrectly encoded instance detected' ].	referenceStream := ReadStream on: slots.	self class reflectedVariableIndicesFor: instance do: [ :index | 		instance			instVarAt: index			put: (referenceStream next resolve: aConnection) ].	^ instance! !
 
 !RsrServiceSnapshot methodsFor!
 snapshotIdentifier	^0! !
@@ -1411,18 +1408,6 @@ originalClassName: aSymbol	originalClassName := aSymbol! !
 !RsrRemoteError methodsFor!
 stack	^stack! !
 
-!RsrCycleDetected methodsFor!
-messageText	^'Cycle detected on: ', object printString! !
-
-!RsrCycleDetected methodsFor!
-object: anObject	object := anObject! !
-
-!RsrDeliverResponse methodsFor!
-snapshots: anArrayOfSnapshots	snapshots := anArrayOfSnapshots! !
-
-!RsrDeliverResponse methodsFor!
-snapshots	^snapshots! !
-
 !RsrDeliverResponse methodsFor!
 response	^self responseReference! !
 
@@ -1430,7 +1415,7 @@ response	^self responseReference! !
 responseReference	^responseReference! !
 
 !RsrDeliverResponse methodsFor!
-executeFor: aConnection	| pendingMessage result |	pendingMessage := aConnection pendingMessages		removeKey: self transaction		ifAbsent: [^self reportUnknownTransactionIn: aConnection].	[self snapshots do: [:each | each reifyIn: aConnection].	result := self responseReference resolve: aConnection.	result first == #fulfill		ifTrue: [pendingMessage promise fulfill: result last]		ifFalse: [pendingMessage promise break: result last]]		on: Error		do: [:ex | pendingMessage promise break: (RsrDecodingRaisedException exception: Exception)]! !
+executeFor: aConnection	| pendingMessage result servicesStrongly |	pendingMessage := aConnection pendingMessages		                  removeKey: self transaction		                  ifAbsent: [ 		                  ^ self reportUnknownTransactionIn: aConnection ].	"Must keep a strong reference to each service until the roots are referenced."	[ 	servicesStrongly := self reifyAllIn: aConnection.	result := self responseReference resolve: aConnection.	"result should now be the root of the services graph"	servicesStrongly := nil.	result first == #fulfill		ifTrue: [ pendingMessage promise fulfill: result last ]		ifFalse: [ pendingMessage promise break: result last ] ]		on: Error		do: [ :ex | 			pendingMessage promise break:				(RsrDecodingRaisedException exception: Exception) ]! !
 
 !RsrDeliverResponse methodsFor!
 encode: aStreamusing: anEncoder	anEncoder		encodeDeliverResponse: self		onto: aStream! !
@@ -1439,16 +1424,10 @@ encode: aStreamusing: anEncoder	anEncoder		encodeDeliverResponse: self		ont
 response: anObject	^self responseReference: anObject! !
 
 !RsrDeliverResponse methodsFor!
-transaction	^transaction! !
-
-!RsrDeliverResponse methodsFor!
 reportOn: aLog	aLog debug: 'RsrDeliverResponse(', self response class name, ')'! !
 
 !RsrDeliverResponse methodsFor!
 responseReference: aReference	responseReference := aReference! !
-
-!RsrDeliverResponse methodsFor!
-transaction: aTransactionId	transaction := aTransactionId! !
 
 !RsrDeliverResponse methodsFor!
 reportUnknownTransactionIn: aConnection	aConnection log error: 'Unknown transaction (', self transaction asString, ') while processing Response'! !
@@ -1655,16 +1634,16 @@ host: hostnameOrAddress	"The hostname or IP address used to establish a connect
 host	"Return the configured hostname or IP address"	^host! !
 
 !RsrService methodsFor!
-isClient	^self class isClientClass! !
+connection	"Returns the Connection associated w/ the receiver."	^self _connection! !
 
 !RsrService methodsFor!
-reflectedVariableNames	^RsrServiceSnapshot reflectedVariablesFor: self! !
+isClient	^self class isClientClass! !
 
 !RsrService methodsFor!
 registerWith: aConnection	aConnection _ensureRegistered: self! !
 
 !RsrService methodsFor!
-_id	^_id! !
+_id	"Private - Returns the Service ID associated w/ the receiver."	^_id! !
 
 !RsrService methodsFor!
 debug: anExceptionraisedDuring: aMessageSendanswerUsing: aResolver	aResolver break: (RsrRemoteException from: anException)! !
@@ -1673,7 +1652,10 @@ debug: anExceptionraisedDuring: aMessageSendanswerUsing: aResolver	aResolver
 postUpdate	"#postUpdate is called just after the Service's shared variables are updated by the framework.	This method can be overridden to ensure internal consistency."	^self! !
 
 !RsrService methodsFor!
-_id: anRsrIdconnection: aConnection	_id := anRsrId.	_connection := aConnection.	remoteSelf := aConnection _forwarderClass on: self! !
+id	"Returns the Service ID associated w/ the receiver."	^self _id! !
+
+!RsrService methodsFor!
+_id: anRsrIdconnection: aConnection	"Private - Configure this Service w/ a Service ID and Connection. This is a side-effect of registering a Service w/ a Connection."	_id := anRsrId.	_connection := aConnection.	remoteSelf := aConnection _forwarderClass on: self! !
 
 !RsrService methodsFor!
 isMirrored	^_connection ~~ nil! !
@@ -1688,7 +1670,7 @@ preUpdate	"#preUpdate is called just before the Service's shared variables are 
 isServer	^self class isServerClass! !
 
 !RsrService methodsFor!
-_connection	^_connection! !
+_connection	"Private - Returns the Connection associated w/ the receiver."	^_connection! !
 
 !RsrService methodsFor!
 synchronize	"Synchronize the service w/ its peer."	remoteSelf == nil		ifFalse: [remoteSelf _synchronize wait]! !
@@ -1703,16 +1685,19 @@ roots: anArray	roots := anArray! !
 snapshot: aService	snapshots add: (RsrServiceSnapshot from: aService)! !
 
 !RsrSnapshotAnalysis methodsFor!
+analyzedObjects	^ analyzedObjects! !
+
+!RsrSnapshotAnalysis methodsFor!
 snapshots	^snapshots! !
 
 !RsrSnapshotAnalysis methodsFor!
-analyzeDictionary: aDictionary	self		analyzing: aDictionary		during:			[aDictionary				keysAndValuesDo:					[:key :value |					self						analyze: key;						analyze: value]].	^aDictionary! !
+analyzeDictionary: aDictionary	aDictionary keysAndValuesDo: [ :key :value | 		self			analyze: key;			analyze: value ].	^ aDictionary! !
 
 !RsrSnapshotAnalysis methodsFor!
 analyzeImmediate: anImmediateObject	^anImmediateObject! !
 
 !RsrSnapshotAnalysis methodsFor!
-analyze: anObject	^(self referenceClassFor: anObject)		analyze: anObject		using: self! !
+analyze: anObject	(analyzedObjects includes: anObject) ifTrue: [ ^ self ].	analyzedObjects add: anObject.	^ (self referenceClassFor: anObject) analyze: anObject using: self! !
 
 !RsrSnapshotAnalysis methodsFor!
 ensureRegistered: aService	self connection _ensureRegistered: aService.	aService isServer		ifTrue: [self connection _stronglyRetain: aService]! !
@@ -1721,22 +1706,19 @@ ensureRegistered: aService	self connection _ensureRegistered: aService.	aServ
 snapshots: anOrderedCollection	snapshots := anOrderedCollection! !
 
 !RsrSnapshotAnalysis methodsFor!
-initialize	super initialize.	snapshots := OrderedCollection new.	inFlight := IdentitySet new! !
-
-!RsrSnapshotAnalysis methodsFor!
-analyzing: anObjectduring: aBlock	(inFlight includes: anObject)		ifTrue: [^RsrCycleDetected signal: anObject].	inFlight add: anObject.	aBlock value.	inFlight remove: anObject! !
-
-!RsrSnapshotAnalysis methodsFor!
-analyzeCollection: aCollection	self		analyzing: aCollection		during: [aCollection do: [:each | self analyze: each]].	^aCollection! !
+initialize	super initialize.	snapshots := OrderedCollection new.	analyzedObjects := IdentitySet new! !
 
 !RsrSnapshotAnalysis methodsFor!
 connection: aConnection	connection := aConnection! !
 
 !RsrSnapshotAnalysis methodsFor!
+analyzeCollection: aCollection	aCollection do: [ :each | self analyze: each ].	^ aCollection! !
+
+!RsrSnapshotAnalysis methodsFor!
 roots	^roots! !
 
 !RsrSnapshotAnalysis methodsFor!
-analyzeService: aService	self ensureRegistered: aService.	self		analyzing: aService		during:			[RsrServiceSnapshot				reflectedVariablesFor: aService				do: [:each | self analyze: each]].	snapshots add: (RsrServiceSnapshot from: aService)! !
+analyzeService: aService	self ensureRegistered: aService.	RsrServiceSnapshot		reflectedVariablesFor: aService		do: [ :each | self analyze: each ].	snapshots add: (RsrServiceSnapshot from: aService)! !
 
 !RsrSnapshotAnalysis methodsFor!
 referenceClassFor: anObject	^RsrReference referenceClassFor: anObject! !

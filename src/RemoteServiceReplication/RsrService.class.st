@@ -77,12 +77,14 @@ RsrService class >> templateClassName [
 
 { #category : 'private-accessing' }
 RsrService >> _connection [
+	"Private - Returns the Connection associated w/ the receiver."
 
 	^_connection
 ]
 
 { #category : 'private-accessing' }
 RsrService >> _id [
+	"Private - Returns the Service ID associated w/ the receiver."
 
 	^_id
 ]
@@ -90,6 +92,7 @@ RsrService >> _id [
 { #category : 'private-accessing' }
 RsrService >> _id: anRsrId
 connection: aConnection [
+	"Private - Configure this Service w/ a Service ID and Connection. This is a side-effect of registering a Service w/ a Connection."
 
 	_id := anRsrId.
 	_connection := aConnection.
@@ -103,12 +106,26 @@ RsrService >> _synchronize [
 	^self
 ]
 
+{ #category : 'public-accessing' }
+RsrService >> connection [
+	"Returns the Connection associated w/ the receiver."
+
+	^self _connection
+]
+
 { #category : 'public-debugging' }
 RsrService >> debug: anException
 raisedDuring: aMessageSend
 answerUsing: aResolver [
 
 	aResolver break: (RsrRemoteException from: anException)
+]
+
+{ #category : 'public-accessing' }
+RsrService >> id [
+	"Returns the Service ID associated w/ the receiver."
+
+	^self _id
 ]
 
 { #category : 'public-testing' }
@@ -150,12 +167,6 @@ RsrService >> preUpdate [
 	Note: If this method raises an exception, RSR will not signal #postUpdate."
 
 	^self
-]
-
-{ #category : 'public-accessing' }
-RsrService >> reflectedVariableNames [
-
-	^RsrServiceSnapshot reflectedVariablesFor: self
 ]
 
 { #category : 'public-registration' }

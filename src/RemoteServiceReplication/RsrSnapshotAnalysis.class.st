@@ -11,8 +11,8 @@ Class {
 	#instVars : [
 		'roots',
 		'snapshots',
-		'inFlight',
-		'connection'
+		'connection',
+		'analyzedObjects'
 	],
 	#category : 'RemoteServiceReplication'
 }
@@ -30,33 +30,26 @@ connection: aConnection [
 { #category : 'analyzing' }
 RsrSnapshotAnalysis >> analyze: anObject [
 
-	^(self referenceClassFor: anObject)
-		analyze: anObject
-		using: self
+	(analyzedObjects includes: anObject) ifTrue: [ ^ self ].
+	analyzedObjects add: anObject.
+	^ (self referenceClassFor: anObject) analyze: anObject using: self
 ]
 
 { #category : 'analyzing' }
 RsrSnapshotAnalysis >> analyzeCollection: aCollection [
 
-	self
-		analyzing: aCollection
-		during: [aCollection do: [:each | self analyze: each]].
-	^aCollection
+	aCollection do: [ :each | self analyze: each ].
+	^ aCollection
 ]
 
 { #category : 'analyzing' }
 RsrSnapshotAnalysis >> analyzeDictionary: aDictionary [
 
-	self
-		analyzing: aDictionary
-		during:
-			[aDictionary
-				keysAndValuesDo:
-					[:key :value |
-					self
-						analyze: key;
-						analyze: value]].
-	^aDictionary
+	aDictionary keysAndValuesDo: [ :key :value | 
+		self
+			analyze: key;
+			analyze: value ].
+	^ aDictionary
 ]
 
 { #category : 'analyzing' }
@@ -69,24 +62,16 @@ RsrSnapshotAnalysis >> analyzeImmediate: anImmediateObject [
 RsrSnapshotAnalysis >> analyzeService: aService [
 
 	self ensureRegistered: aService.
-	self
-		analyzing: aService
-		during:
-			[RsrServiceSnapshot
-				reflectedVariablesFor: aService
-				do: [:each | self analyze: each]].
+	RsrServiceSnapshot
+		reflectedVariablesFor: aService
+		do: [ :each | self analyze: each ].
 	snapshots add: (RsrServiceSnapshot from: aService)
 ]
 
-{ #category : 'analyzing' }
-RsrSnapshotAnalysis >> analyzing: anObject
-during: aBlock [
+{ #category : 'accessing' }
+RsrSnapshotAnalysis >> analyzedObjects [
 
-	(inFlight includes: anObject)
-		ifTrue: [^RsrCycleDetected signal: anObject].
-	inFlight add: anObject.
-	aBlock value.
-	inFlight remove: anObject
+	^ analyzedObjects
 ]
 
 { #category : 'accessing' }
@@ -114,7 +99,7 @@ RsrSnapshotAnalysis >> initialize [
 
 	super initialize.
 	snapshots := OrderedCollection new.
-	inFlight := IdentitySet new
+	analyzedObjects := IdentitySet new
 ]
 
 { #category : 'actions' }

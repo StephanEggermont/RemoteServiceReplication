@@ -762,58 +762,58 @@ return: anObject	^anObject! !
 preUpdateCount	^preUpdateCount ifNil: [0]! !
 
 !RsrStressTest methodsFor!
-setUp	super setUp.	self		initializeConnections;		initializeServices! !
-
-!RsrStressTest methodsFor!
-test2KBytes	self repeatedlySend: (ByteArray new: 1024 *2)! !
-
-!RsrStressTest methodsFor!
-tearDown	self cleanupServices.	super tearDown! !
+cleanupServices	client := server := nil! !
 
 !RsrStressTest methodsFor!
 testBasicSends	self repeatedlySend: nil! !
 
 !RsrStressTest methodsFor!
-testConcurrent2KBytes	self concurrentlyRun: [self client value: (ByteArray new: 2 * 1024)]! !
-
-!RsrStressTest methodsFor!
-repeatedlyRun: aBlock	self repetitions timesRepeat: aBlock! !
-
-!RsrStressTest methodsFor!
-testConcurrentBasicSends	self concurrentlyRun: [self client value: nil]! !
-
-!RsrStressTest methodsFor!
-repetitions	^1000! !
-
-!RsrStressTest methodsFor!
-testConcurrent1KBytes	self concurrentlyRun: [self client value: (ByteArray new: 1024)]! !
-
-!RsrStressTest methodsFor!
-numThreads	^15! !
-
-!RsrStressTest methodsFor!
-initializeServices	client := connectionA serviceFor: #RsrRemoteAction.	client synchronize.	server := connectionB serviceAt: client _id.	server action: [:x | x]! !
+test1MBytes	self repeatedlySend: (ByteArray new: 1024 squared)! !
 
 !RsrStressTest methodsFor!
 server	^server! !
 
 !RsrStressTest methodsFor!
-test1MBytes	self repeatedlySend: (ByteArray new: 1024 squared)! !
-
-!RsrStressTest methodsFor!
-test1KBytes	self repeatedlySend: (ByteArray new: 1024)! !
-
-!RsrStressTest methodsFor!
-repeatedlySend: anObject	self repeatedlyRun: [self client value: anObject]! !
+setUp	super setUp.	self		initializeConnections;		initializeServices! !
 
 !RsrStressTest methodsFor!
 concurrentlyRun: aBlock	| anyCurtailed semaphores |	anyCurtailed := false.	semaphores := (1 to: self numThreads) collect: [:each | Semaphore new].	semaphores do: [:semaphore | RsrProcessModel fork: [[self repeatedlyRun: aBlock. semaphore signal] ifCurtailed: [anyCurtailed := true. semaphore signal]]].	semaphores do: [:semaphore | semaphore wait].	self deny: anyCurtailed! !
 
 !RsrStressTest methodsFor!
-cleanupServices	client := server := nil! !
+client	^client! !
 
 !RsrStressTest methodsFor!
-client	^client! !
+testConcurrent1KBytes	self concurrentlyRun: [self client value: (ByteArray new: 1024)]! !
+
+!RsrStressTest methodsFor!
+repeatedlySend: anObject	self repeatedlyRun: [self client value: anObject]! !
+
+!RsrStressTest methodsFor!
+repeatedlyRun: aBlock	self repetitions timesRepeat: aBlock! !
+
+!RsrStressTest methodsFor!
+tearDown	self cleanupServices.	super tearDown! !
+
+!RsrStressTest methodsFor!
+testConcurrent2KBytes	self concurrentlyRun: [self client value: (ByteArray new: 2 * 1024)]! !
+
+!RsrStressTest methodsFor!
+testConcurrentBasicSends	self concurrentlyRun: [self client value: nil]! !
+
+!RsrStressTest methodsFor!
+initializeServices	client := connectionA serviceFor: #RsrRemoteAction.	client synchronize.	server := connectionB serviceAt: client _id.	server action: [:x | x]! !
+
+!RsrStressTest methodsFor!
+test2KBytes	self repeatedlySend: (ByteArray new: 1024 *2)! !
+
+!RsrStressTest methodsFor!
+test1KBytes	self repeatedlySend: (ByteArray new: 1024)! !
+
+!RsrStressTest methodsFor!
+numThreads	^15! !
+
+!RsrStressTest methodsFor!
+repetitions	^1000! !
 
 !RsrSocketConnectionTestCase methodsFor!
 setUp	super setUp.	self initializeSocketConnections! !
@@ -1056,31 +1056,31 @@ testServiceAllDataObjects	"While this code is structurally similar to #testClie
 tearDown	connection close.	connection := nil.	super tearDown! !
 
 !RsrSnapshotAnalysisTest methodsFor!
-assertCycle: anObject	self		should: [self analyze: anObject]		raise: RsrCycleDetected! !
-
-!RsrSnapshotAnalysisTest methodsFor!
-testSetCycle	| set |	set := Set new.	set add: set.	self assertCycle: set.	set := Set new.	set add: (Array with: set).	self assertCycle: set! !
+testSetCycle	| set analysis |	set := Set new.	set add: set.	analysis := self analyze: set.	self		assert: analysis snapshots size equals: 0;		assert: analysis analyzedObjects size equals: 1.	set := Set new.	set add: (Array with: set).	analysis := self analyze: set.	self		assert: analysis snapshots size equals: 0;		assert: analysis analyzedObjects size equals: 2! !
 
 !RsrSnapshotAnalysisTest methodsFor!
 analyze: anObject	| analysis |	analysis := RsrSnapshotAnalysis		roots: (Array with: anObject)		connection: connection.	analysis perform.	^analysis! !
 
 !RsrSnapshotAnalysisTest methodsFor!
-testArrayCycle	| array |	array := Array new: 1.	array		at: 1		put: array.	self assertCycle: array.	array		at: 1		put: { array }.	self assertCycle: array! !
+testArrayCycle	| array analysis |	array := Array new: 1.	array at: 1 put: array.	analysis := self analyze: array.	self		assert: analysis snapshots size equals: 0;		assert: analysis analyzedObjects size equals: 1.	array at: 1 put: { array }.	analysis := self analyze: array.	self		assert: analysis snapshots size equals: 0;		assert: analysis analyzedObjects size equals: 2.! !
 
 !RsrSnapshotAnalysisTest methodsFor!
 testNewServiceInArray	"Ensure a new service in a collection is properly tagged"	| service analysis expected |	service := RsrServerNoInstVars new.	analysis := self analyze: (Array with: service).	expected := OrderedCollection with: service.	self		assert: analysis snapshots size		equals: 1.	self assert: service isMirrored! !
 
 !RsrSnapshotAnalysisTest methodsFor!
+testMultiPathsToSameService	"Tests issue 76, Unnecessary duplicate snapshots being sent."	| childService parentService orderedCollection analysis |	childService := RsrRemoteAction clientClass new.	parentService := RsrRemoteAction clientClass sharedVariable:		                 childService.	orderedCollection := OrderedCollection		                     with: childService		                     with: parentService.	analysis := self analyze: orderedCollection.	self assert: analysis snapshots size equals: 2.	self		assert: parentService isMirrored;		assert: childService isMirrored! !
+
+!RsrSnapshotAnalysisTest methodsFor!
 testServiceNoInstVars	| client analysis expected snapshot |	client := RsrClientNoInstVars new.	analysis := self analyze: client.	expected := OrderedCollection with: client.	self assert: client isMirrored.	self		assert: analysis snapshots size		equals: 1.	snapshot := analysis snapshots first.	self		assert: snapshot slots size		equals: 0.	self assert: snapshot shouldCreateServer.	self		assert: snapshot templateClass		equals: client class templateClass! !
 
 !RsrSnapshotAnalysisTest methodsFor!
-testOrderedCollectionCycle	| oc |	oc := OrderedCollection new.	oc add: oc.	self assertCycle: oc.	oc := OrderedCollection with: (Array with: oc).	self assertCycle: oc.! !
+testOrderedCollectionCycle	| oc analysis |	oc := OrderedCollection new.	oc add: oc.	analysis := self analyze: oc.	self		assert: analysis snapshots size equals: 0;		assert: analysis analyzedObjects size equals: 1.	oc := OrderedCollection with: (Array with: oc).	analysis := self analyze: oc.	self		assert: analysis snapshots size equals: 0;		assert: analysis analyzedObjects size equals: 3! !
 
 !RsrSnapshotAnalysisTest methodsFor!
-testServiceWithCycle	"Cycles are disallowed for our POC. Perhaps they will get added later?"	| rootClient referencedClient |	rootClient := RsrRemoteAction new.	referencedClient := RsrRemoteAction sharedVariable: rootClient.	rootClient sharedVariable: referencedClient.	self assertCycle: rootClient! !
+testServiceWithCycle	| rootClient referencedClient analysis |	rootClient := RsrRemoteAction new.	referencedClient := RsrRemoteAction sharedVariable: rootClient.	rootClient sharedVariable: referencedClient.	analysis := self analyze: rootClient.	self		assert: analysis snapshots size equals: 2;		assert: analysis analyzedObjects size equals: 2! !
 
 !RsrSnapshotAnalysisTest methodsFor!
-testDictionaryCycle	| dictionary |	dictionary := Dictionary new.	dictionary		at: 1		put: dictionary.	self assertCycle: dictionary.	dictionary removeKey: 1.	dictionary		at: dictionary		put: 1.	self assertCycle: dictionary! !
+testDictionaryCycle	| dictionary analysis |	dictionary := Dictionary new.	dictionary at: 1 put: dictionary.	analysis := self analyze: dictionary.	self		assert: analysis snapshots size equals: 0;		assert: analysis analyzedObjects size equals: 2.	dictionary removeKey: 1.	dictionary at: dictionary put: 1.	analysis := self analyze: dictionary.	self		assert: analysis snapshots size equals: 0;		assert: analysis analyzedObjects size equals: 2! !
 
 !RsrSnapshotAnalysisTest methodsFor!
 testNewServicesInDictionary	"Ensure a new service in a collection is properly tagged"	| key value dictionary analysis expected |	key := RsrServerNoInstVars new.	value := RsrServerNoInstVars new.	dictionary := Dictionary new		at: key put: value;		yourself.	analysis := self analyze: dictionary.	self		assert: analysis snapshots size		equals: 2.	self		assert: key isMirrored;		assert: value isMirrored! !
@@ -1203,7 +1203,7 @@ testRemoteProcessTerminationDuringPrePostUpdate	| client server reason |	clie
 testCloseConnectionDuringMessageSend	| client server promise reason |	client := connectionA serviceFor: #RsrRemoteAction.	client synchronize.	server := connectionB serviceAt: client _id.	server action: [(Delay forSeconds: 10) wait].	promise := client asyncValue.	connectionA close.	reason := self expectCatch: promise.	self		assert: reason class		equals: RsrConnectionClosed! !
 
 !RsrMessageSendingTest methodsFor!
-testReturnInvalidObject	| client server reason |				client := connectionA serviceFor: #RsrRemoteAction.	client synchronize.	server := connectionB serviceAt: client _id.	server action: [Object new].	self		should: [client value]		raise: RsrBrokenPromise.	reason := [client value]		on: RsrBrokenPromise		do: [:ex | ex return: ex reason].	self assert: reason isRemoteException.	self		assert: reason exceptionClassName		equals: #RsrUnsupportedObject.	self		assert: reason tag		equals: 'Instances of Object cannot be serialized'.	self		assert: reason messageText		equals: 'Instances of Object cannot be serialized'.	self		assert: reason stack isString;		assert: reason stack size > 0! !
+testReturnInvalidObject	| client server reason |				client := connectionA serviceFor: #RsrRemoteAction.	client synchronize.	server := connectionB serviceAt: client _id.	server action: [Object new].	self		should: [client value]		raise: RsrBrokenPromise.	reason := [client value]		on: RsrBrokenPromise		do: [:ex | ex return: ex reason].	self assert: reason isRemoteException.	self		assert: reason exceptionClassName		equals: #RsrUnsupportedObject.	self		assert: reason tag		equals: 'Instances of #Object do not support replication.'.	self		assert: reason messageText		equals: 'Instances of #Object do not support replication.'.	self		assert: reason stack isString;		assert: reason stack size > 0! !
 
 !RsrMessageSendingTest methodsFor!
 testAsyncRemoteError	| client server reason |	client := connectionA serviceFor: #RsrRemoteAction.	client synchronize.	server := connectionB serviceAt: client _id.	server action: [Error new tag: 'tag'; messageText: 'messageText'; signal].	reason := self expectCatch: client asyncValue.	self assert: reason isRemoteException.	self		assert: reason exceptionClassName		equals: #Error.	self		assert: reason tag		equals: 'tag'.	self		assert: reason messageText		equals: 'messageText'.	self		assert: reason stack isString;		assert: reason stack size > 0! !
@@ -1359,7 +1359,7 @@ testRegisterWith	| instance |	instance := RsrRemoteAction clientClass new.	s
 testIsMirrored	| instance |	instance := RsrRemoteAction clientClass new.	self deny: instance isMirrored.	self mirror: instance.	self assert: instance isMirrored! !
 
 !RsrServiceTest methodsFor!
-testReflectedVariableNames	| client server clientNames serverNames |	client := connectionA serviceFor: #RsrTestService.	client synchronize.	server := connectionB serviceAt: client _id.	clientNames := client reflectedVariableNames.	serverNames := server reflectedVariableNames.	self		assert: clientNames		equals: serverNames.	self		assert: clientNames size		equals: 1.	self		assert: (clientNames at: 1) asSymbol		equals: #sharedVariable.	client := connectionA serviceFor: #RsrReflectedVariableTestServiceB.	client synchronize.	server := connectionB serviceAt: client _id.	clientNames := client reflectedVariableNames.	serverNames := server reflectedVariableNames.	self		assert: clientNames		equals: serverNames.	self		assert: clientNames size		equals: 2.	self		assert: (clientNames at: 1) asSymbol		equals: #varA.	self		assert: (clientNames at: 2) asSymbol		equals: #varB! !
+testReflectedVariableNames	| client server clientNames serverNames |	client := connectionA serviceFor: #RsrTestService.	client synchronize.	server := connectionB serviceAt: client _id.	clientNames := RsrServiceSnapshot reflectedVariablesFor: client.	serverNames := RsrServiceSnapshot reflectedVariablesFor: server.	self		assert: clientNames		equals: serverNames.	self		assert: clientNames size		equals: 1.	self		assert: (clientNames at: 1) asSymbol		equals: #sharedVariable.	client := connectionA serviceFor: #RsrReflectedVariableTestServiceB.	client synchronize.	server := connectionB serviceAt: client _id.	clientNames := RsrServiceSnapshot reflectedVariablesFor: client.	serverNames := RsrServiceSnapshot reflectedVariablesFor: server.	self		assert: clientNames		equals: serverNames.	self		assert: clientNames size		equals: 2.	self		assert: (clientNames at: 1) asSymbol		equals: #varA.	self		assert: (clientNames at: 2) asSymbol		equals: #varB! !
 
 !RsrServiceTest methodsFor!
 testHasRemoteSelf	| service |	service := RsrTestService clientClass new.	self mirror: service.	self deny: nil == service remoteSelf! !

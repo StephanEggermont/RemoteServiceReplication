@@ -8,11 +8,9 @@ Object
 "
 Class {
 	#name : 'RsrDeliverResponse',
-	#superclass : 'RsrCommand',
+	#superclass : 'RsrMessagingCommand',
 	#instVars : [
-		'transaction',
-		'responseReference',
-		'snapshots'
+		'responseReference'
 	],
 	#category : 'RemoteServiceReplication'
 }
@@ -41,17 +39,24 @@ using: anEncoder [
 { #category : 'executing' }
 RsrDeliverResponse >> executeFor: aConnection [
 
-	| pendingMessage result |
+	| pendingMessage result servicesStrongly |
 	pendingMessage := aConnection pendingMessages
-		removeKey: self transaction
-		ifAbsent: [^self reportUnknownTransactionIn: aConnection].
-	[self snapshots do: [:each | each reifyIn: aConnection].
+		                  removeKey: self transaction
+		                  ifAbsent: [ 
+		                  ^ self reportUnknownTransactionIn: aConnection ].
+	"Must keep a strong reference to each service until the roots are referenced."
+	[ 
+	servicesStrongly := self reifyAllIn: aConnection.
 	result := self responseReference resolve: aConnection.
+	"result should now be the root of the services graph"
+	servicesStrongly := nil.
 	result first == #fulfill
-		ifTrue: [pendingMessage promise fulfill: result last]
-		ifFalse: [pendingMessage promise break: result last]]
+		ifTrue: [ pendingMessage promise fulfill: result last ]
+		ifFalse: [ pendingMessage promise break: result last ] ]
 		on: Error
-		do: [:ex | pendingMessage promise break: (RsrDecodingRaisedException exception: Exception)]
+		do: [ :ex | 
+			pendingMessage promise break:
+				(RsrDecodingRaisedException exception: Exception) ]
 ]
 
 { #category : 'reporting' }
@@ -88,28 +93,4 @@ RsrDeliverResponse >> responseReference [
 RsrDeliverResponse >> responseReference: aReference [
 
 	responseReference := aReference
-]
-
-{ #category : 'accessing' }
-RsrDeliverResponse >> snapshots [
-
-	^snapshots
-]
-
-{ #category : 'accessing' }
-RsrDeliverResponse >> snapshots: anArrayOfSnapshots [
-
-	snapshots := anArrayOfSnapshots
-]
-
-{ #category : 'accessing' }
-RsrDeliverResponse >> transaction [
-
-	^transaction
-]
-
-{ #category : 'accessing' }
-RsrDeliverResponse >> transaction: aTransactionId [
-
-	transaction := aTransactionId
 ]

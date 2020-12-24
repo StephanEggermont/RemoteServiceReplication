@@ -127,16 +127,16 @@ RsrServiceSnapshot >> instanceIn: aConnection [
 RsrServiceSnapshot >> reifyIn: aConnection [
 
 	| instance referenceStream |
+	"Instance should already be registered"
 	instance := self instanceIn: aConnection.
-	(self class reflectedVariablesFor: instance) size = slots size
-		ifFalse: [self error: 'Incorrected encoded instance detected'].
+	(self class reflectedVariablesFor: instance) size = slots size 
+		ifFalse: [ self error: 'Incorrectly encoded instance detected' ].
 	referenceStream := ReadStream on: slots.
-	instance preUpdate.
-	self class
-		reflectedVariableIndicesFor: instance
-		do: [:index | instance instVarAt: index put: (referenceStream next resolve: aConnection)].
-	instance postUpdate.
-	^instance
+	self class reflectedVariableIndicesFor: instance do: [ :index | 
+		instance
+			instVarAt: index
+			put: (referenceStream next resolve: aConnection) ].
+	^ instance
 ]
 
 { #category : 'testing' }

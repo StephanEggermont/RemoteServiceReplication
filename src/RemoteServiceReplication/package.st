@@ -1,1 +1,1 @@
-Package { #name : #RemoteServiceReplication }
+Package { #name : 'RemoteServiceReplication' }

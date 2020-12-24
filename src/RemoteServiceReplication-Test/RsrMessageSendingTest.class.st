@@ -464,10 +464,10 @@ RsrMessageSendingTest >> testReturnInvalidObject [
 		equals: #RsrUnsupportedObject.
 	self
 		assert: reason tag
-		equals: 'Instances of Object cannot be serialized'.
+		equals: 'Instances of #Object do not support replication.'.
 	self
 		assert: reason messageText
-		equals: 'Instances of Object cannot be serialized'.
+		equals: 'Instances of #Object do not support replication.'.
 	self
 		assert: reason stack isString;
 		assert: reason stack size > 0

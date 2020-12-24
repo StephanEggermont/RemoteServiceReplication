@@ -12,6 +12,7 @@ RsrUnsupportedObject class >> signal: anObject [
 
 	^self new
 		object: anObject;
+		messageText: 'Instances of #', anObject class name, ' do not support replication.';
 		signal
 ]
 
@@ -24,6 +25,5 @@ RsrUnsupportedObject >> object [
 { #category : 'accessing' }
 RsrUnsupportedObject >> object: anObject [
 
-	object := anObject.
-	self messageText: 'Instances of ', object class name, ' cannot be serialized'
+	object := anObject
 ]

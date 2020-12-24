@@ -8,13 +8,11 @@ Object
 "
 Class {
 	#name : 'RsrSendMessage',
-	#superclass : 'RsrCommand',
+	#superclass : 'RsrMessagingCommand',
 	#instVars : [
-		'transaction',
 		'receiverReference',
 		'selectorReference',
-		'argumentReferences',
-		'snapshots'
+		'argumentReferences'
 	],
 	#category : 'RemoteServiceReplication'
 }
@@ -57,30 +55,30 @@ using: anEncoder [
 { #category : 'executing' }
 RsrSendMessage >> executeFor: aConnection [
 
-	| resolver services receiver selector arguments messageSend |
-	resolver := RsrRemotePromiseResolver
-		for: self
-		over: aConnection.
-	[[services := self snapshots collect: [:each | each reifyIn: aConnection].
+	| resolver servicesStrongly receiver selector arguments messageSend |
+	resolver := RsrRemotePromiseResolver for: self over: aConnection.
+	"Must keep a strong reference to each service until the roots are referenced."
+	[ 
+	[ 
+	servicesStrongly := self reifyAllIn: aConnection.
 	receiver := self receiverReference resolve: aConnection.
 	selector := self selectorReference resolve: aConnection.
-	arguments := self argumentReferences collect: [:each | each resolve: aConnection].
+	arguments := self argumentReferences collect: [ :each | 
+		             each resolve: aConnection ].
+	"receiver and arguments should now be the roots of the service graph, discard strong references."
+	servicesStrongly := nil.
 	resolver addRoot: receiver. "Ensure we always send back the receiver -- this ensures sending a message results in by-directional syncing."
 	messageSend := RsrMessageSend
-		receiver: receiver
-		selector: selector
-		arguments: arguments.
-	self
-		perform: messageSend
-		answerUsing: resolver]
+		               receiver: receiver
+		               selector: selector
+		               arguments: arguments.
+	self perform: messageSend answerUsing: resolver ]
 		on: self unhandledExceptionClass
-		do:
-			[:ex |
+		do: [ :ex | 
 			resolver break: (RsrRemoteException from: ex).
-			ex return]]
-		ensure:
-			[resolver hasResolved
-				ifFalse: [resolver break: 'Message send terminated without a result']]
+			ex return ] ] ensure: [ 
+		resolver hasResolved ifFalse: [ 
+			resolver break: 'Message send terminated without a result' ] ]
 ]
 
 { #category : 'reporting' }
@@ -139,20 +137,6 @@ RsrSendMessage >> receiverReference: aServiceReference [
 	receiverReference := aServiceReference
 ]
 
-{ #category : 'decoding' }
-RsrSendMessage >> reifyMessageSendIn: aConnection [
-
-	| services receiver selector arguments |
-	services := self snapshots collect: [:each | each reifyIn: aConnection].
-	receiver := self receiverReference resolve: aConnection.
-	selector := self selectorReference resolve: aConnection.
-	arguments := self argumentReferences collect: [:each | each resolve: aConnection].
-	^RsrMessageSend
-		receiver: receiver
-		selector: selector
-		arguments: arguments
-]
-
 { #category : 'reporting' }
 RsrSendMessage >> reportOn: aLog [
 
@@ -169,28 +153,6 @@ RsrSendMessage >> selectorReference [
 RsrSendMessage >> selectorReference: aSymbolReference [
 
 	selectorReference := aSymbolReference
-]
-
-{ #category : 'accessing' }
-RsrSendMessage >> snapshots [
-
-	^snapshots
-]
-
-{ #category : 'accessing' }
-RsrSendMessage >> snapshots: anArrayOfSnapshots [
-
-	snapshots := anArrayOfSnapshots
-]
-
-{ #category : 'accessing' }
-RsrSendMessage >> transaction [
-	^ transaction
-]
-
-{ #category : 'accessing' }
-RsrSendMessage >> transaction: anObject [
-	transaction := anObject
 ]
 
 { #category : 'accessing' }

@@ -229,8 +229,8 @@ RsrServiceTest >> testReflectedVariableNames [
 	client := connectionA serviceFor: #RsrTestService.
 	client synchronize.
 	server := connectionB serviceAt: client _id.
-	clientNames := client reflectedVariableNames.
-	serverNames := server reflectedVariableNames.
+	clientNames := RsrServiceSnapshot reflectedVariablesFor: client.
+	serverNames := RsrServiceSnapshot reflectedVariablesFor: server.
 	self
 		assert: clientNames
 		equals: serverNames.
@@ -243,8 +243,8 @@ RsrServiceTest >> testReflectedVariableNames [
 	client := connectionA serviceFor: #RsrReflectedVariableTestServiceB.
 	client synchronize.
 	server := connectionB serviceAt: client _id.
-	clientNames := client reflectedVariableNames.
-	serverNames := server reflectedVariableNames.
+	clientNames := RsrServiceSnapshot reflectedVariablesFor: client.
+	serverNames := RsrServiceSnapshot reflectedVariablesFor: server.
 	self
 		assert: clientNames
 		equals: serverNames.

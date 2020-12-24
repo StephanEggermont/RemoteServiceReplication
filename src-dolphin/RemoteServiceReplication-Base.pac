@@ -413,7 +413,7 @@ RsrSymbolReference comment: 'No class-specific documentation for RsrSymbolRefere
 !RsrSymbolReference categoriesForClass!RemoteServiceReplication-Base! !
 
 !RsrUnsupportedObject class methodsFor!
-signal: anObject	^self new		object: anObject;		signal! !
+signal: anObject	^self new		object: anObject;		messageText: 'Instances of #', anObject class name, ' do not support replication.';		signal! !
 
 !RsrOrderedCollectionReference class methodsFor!
 typeIdentifier	^12! !
@@ -563,7 +563,7 @@ from: aSet	| referenceStream |	referenceStream := WriteStream on: (Array new:
 object	^object! !
 
 !RsrUnsupportedObject methodsFor!
-object: anObject	object := anObject.	self messageText: 'Instances of ', object class name, ' cannot be serialized'! !
+object: anObject	object := anObject! !
 
 !RsrOrderedCollectionReference methodsFor!
 resolve: aConnection	| oc |	oc := OrderedCollection new: intermediate size.	intermediate do: [:each | oc add: (each resolve: aConnection)].	^oc! !
