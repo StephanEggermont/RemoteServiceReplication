@@ -24,17 +24,40 @@ RsrRemoteException class >> from: anException [
 	a server hanging around if we don't need it."
 
 	| tag |
-	tag := anException tag
-		ifNotNil:
-			[[anException tag asString]
-				on: Error
-				do: [:ex | ex return: 'Unable to pack #tag containing an instance of ', anException tag class name]].
-	^self clientClass new
-		exceptionClassName: anException class name;
-		tag: tag;
-		messageText: anException messageText;
-		stack: RsrProcessModel currentStackDump;
-		yourself
+	(anException isKindOf: RsrUnhandledException)
+		ifTrue: [ 
+			| unhandledException |
+			unhandledException := anException tag.
+			tag := unhandledException tag
+				ifNotNil: [ 
+					[ unhandledException tag asString ]
+						on: Error
+						do: [ :ex | 
+							ex
+								return:
+									'Unable to pack #tag containing an instance of '
+										, unhandledException tag class name ] ].
+			^ self clientClass new
+				exceptionClassName: unhandledException class name;
+				tag: tag;
+				messageText: unhandledException messageText;
+				stack: RsrProcessModel currentStackDump;
+				yourself ]
+		ifFalse: [ 
+			tag := anException tag
+				ifNotNil: [ 
+					[ anException tag asString ]
+						on: Error
+						do: [ :ex | 
+							ex
+								return:
+									'Unable to pack #tag containing an instance of ' , anException tag class name ] ].
+			^ self clientClass new
+				exceptionClassName: anException class name;
+				tag: tag;
+				messageText: anException messageText;
+				stack: RsrProcessModel currentStackDump;
+				yourself ]
 ]
 
 { #category : 'accessing' }
