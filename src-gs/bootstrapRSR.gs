@@ -9,7 +9,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -27,7 +27,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -45,7 +45,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -58,30 +58,12 @@ removeallclassmethods RsrConnectionFailed
 
 doit
 (RsrError
-	subclass: 'RsrCycleDetected'
-	instVarNames: #( object )
-	classVars: #(  )
-	classInstVars: #(  )
-	poolDictionaries: #()
-	inDictionary: UserGlobals
-	options: #()
-)
-		category: 'RemoteServiceReplication';
-		immediateInvariant.
-true.
-%
-
-removeallmethods RsrCycleDetected
-removeallclassmethods RsrCycleDetected
-
-doit
-(RsrError
 	subclass: 'RsrNonresumableError'
 	instVarNames: #(  )
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -99,7 +81,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -117,7 +99,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -135,7 +117,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -153,7 +135,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -171,7 +153,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -189,7 +171,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -207,7 +189,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -225,7 +207,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -243,7 +225,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -261,7 +243,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -279,7 +261,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -297,7 +279,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -315,7 +297,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -333,7 +315,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-GemStone';
@@ -351,7 +333,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-GemStone';
@@ -369,7 +351,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -387,7 +369,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -408,7 +390,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -426,7 +408,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -444,7 +426,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-GemStone';
@@ -462,7 +444,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -481,7 +463,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -499,7 +481,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -517,7 +499,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -535,7 +517,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -560,7 +542,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -586,7 +568,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -612,7 +594,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Platform-Test';
@@ -630,7 +612,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Platform-Test';
@@ -648,7 +630,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Platform-Test';
@@ -666,7 +648,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -685,7 +667,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -703,7 +685,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -721,7 +703,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -739,7 +721,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -757,7 +739,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -775,7 +757,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -793,7 +775,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -811,7 +793,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -829,7 +811,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -847,7 +829,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -865,7 +847,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -883,7 +865,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -901,7 +883,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -919,7 +901,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -937,7 +919,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -955,7 +937,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -973,7 +955,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -991,7 +973,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1009,7 +991,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1027,7 +1009,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -1045,7 +1027,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -1063,7 +1045,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -1081,7 +1063,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -1099,7 +1081,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -1117,7 +1099,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -1135,7 +1117,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -1153,7 +1135,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -1171,7 +1153,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -1189,7 +1171,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -1207,7 +1189,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -1225,7 +1207,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -1243,7 +1225,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1261,7 +1243,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1284,7 +1266,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1323,7 +1305,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -1341,7 +1323,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1365,7 +1347,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-GemStone';
@@ -1383,7 +1365,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1401,7 +1383,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1425,7 +1407,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1443,7 +1425,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1461,12 +1443,30 @@ removeallclassmethods RsrCommand
 
 doit
 (RsrCommand
-	subclass: 'RsrDeliverResponse'
-	instVarNames: #( transaction responseReference snapshots )
+	subclass: 'RsrMessagingCommand'
+	instVarNames: #( snapshots transaction )
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
+	options: #()
+)
+		category: 'RemoteServiceReplication';
+		immediateInvariant.
+true.
+%
+
+removeallmethods RsrMessagingCommand
+removeallclassmethods RsrMessagingCommand
+
+doit
+(RsrMessagingCommand
+	subclass: 'RsrDeliverResponse'
+	instVarNames: #( responseReference )
+	classVars: #(  )
+	classInstVars: #(  )
+	poolDictionaries: #()
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1484,37 +1484,13 @@ removeallmethods RsrDeliverResponse
 removeallclassmethods RsrDeliverResponse
 
 doit
-(RsrCommand
-	subclass: 'RsrReleaseServices'
-	instVarNames: #( sids )
-	classVars: #(  )
-	classInstVars: #(  )
-	poolDictionaries: #()
-	inDictionary: UserGlobals
-	options: #()
-)
-		category: 'RemoteServiceReplication';
-		comment: 'No class-specific documentation for RsrReleaseServices, hierarchy is:
-Object
-  RsrObject
-    RsrCommand( encoding)
-      RsrReleaseServices( oids)
-';
-		immediateInvariant.
-true.
-%
-
-removeallmethods RsrReleaseServices
-removeallclassmethods RsrReleaseServices
-
-doit
-(RsrCommand
+(RsrMessagingCommand
 	subclass: 'RsrSendMessage'
-	instVarNames: #( transaction receiverReference selectorReference argumentReferences snapshots )
+	instVarNames: #( receiverReference selectorReference argumentReferences )
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1532,13 +1508,37 @@ removeallmethods RsrSendMessage
 removeallclassmethods RsrSendMessage
 
 doit
+(RsrCommand
+	subclass: 'RsrReleaseServices'
+	instVarNames: #( sids )
+	classVars: #(  )
+	classInstVars: #(  )
+	poolDictionaries: #()
+	inDictionary: Globals
+	options: #()
+)
+		category: 'RemoteServiceReplication';
+		comment: 'No class-specific documentation for RsrReleaseServices, hierarchy is:
+Object
+  RsrObject
+    RsrCommand( encoding)
+      RsrReleaseServices( oids)
+';
+		immediateInvariant.
+true.
+%
+
+removeallmethods RsrReleaseServices
+removeallclassmethods RsrReleaseServices
+
+doit
 (RsrObject
 	subclass: 'RsrConnection'
 	instVarNames: #( channel transactionSpigot oidSpigot dispatchQueue log registry pendingMessages serviceFactory closeSemaphore specification )
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1561,7 +1561,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1579,7 +1579,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1597,7 +1597,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1615,7 +1615,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1633,7 +1633,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1654,7 +1654,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1679,7 +1679,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1706,7 +1706,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -1724,7 +1724,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1750,7 +1750,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-GemStone';
@@ -1768,7 +1768,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-GemStone';
@@ -1786,7 +1786,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-GemStone';
@@ -1804,7 +1804,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1822,7 +1822,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1840,7 +1840,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1858,7 +1858,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1876,7 +1876,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1894,7 +1894,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1912,7 +1912,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1930,7 +1930,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1948,7 +1948,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -1966,7 +1966,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -2015,7 +2015,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -2033,7 +2033,7 @@ doit
 	classVars: #(  )
 	classInstVars: #( referenceMapping )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2065,7 +2065,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2089,7 +2089,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2114,7 +2114,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2139,7 +2139,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2164,7 +2164,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2189,7 +2189,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2214,7 +2214,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2240,7 +2240,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2265,7 +2265,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2291,7 +2291,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2317,7 +2317,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2343,7 +2343,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2369,7 +2369,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2395,7 +2395,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2421,7 +2421,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2447,7 +2447,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2473,7 +2473,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2499,7 +2499,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2517,7 +2517,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2542,7 +2542,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2568,7 +2568,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2594,7 +2594,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2618,7 +2618,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-GemStone';
@@ -2636,7 +2636,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -2657,7 +2657,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-GemStone';
@@ -2675,7 +2675,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-GemStone';
@@ -2693,7 +2693,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -2723,7 +2723,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -2737,11 +2737,11 @@ removeallclassmethods RsrSignalErrorInAsString
 doit
 (RsrObject
 	subclass: 'RsrSnapshotAnalysis'
-	instVarNames: #( roots snapshots inFlight connection )
+	instVarNames: #( roots snapshots connection analyzedObjects )
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -2764,7 +2764,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-GemStone';
@@ -2782,7 +2782,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -2805,7 +2805,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -2829,7 +2829,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -2847,7 +2847,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Platform-Test';
@@ -2865,7 +2865,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -2883,7 +2883,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -2901,7 +2901,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication';
@@ -2920,7 +2920,7 @@ doit
 	classVars: #(  )
 	classInstVars: #( current )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Base';
@@ -2938,7 +2938,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Platform-Test';
@@ -2956,7 +2956,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Platform-Test';
@@ -2975,7 +2975,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Platform-Test';
@@ -2993,7 +2993,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3011,7 +3011,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3037,7 +3037,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3063,7 +3063,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3081,7 +3081,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3099,7 +3099,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Platform-Test';
@@ -3117,7 +3117,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3135,7 +3135,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3153,7 +3153,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3171,7 +3171,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3196,7 +3196,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3214,7 +3214,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Platform-Test';
@@ -3232,7 +3232,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3250,7 +3250,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3268,7 +3268,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3286,7 +3286,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3304,7 +3304,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3322,7 +3322,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3340,7 +3340,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3358,7 +3358,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3376,7 +3376,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3394,7 +3394,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3412,7 +3412,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3430,7 +3430,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3448,7 +3448,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3466,7 +3466,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3484,7 +3484,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3502,7 +3502,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3520,7 +3520,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3538,7 +3538,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3556,7 +3556,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Test';
@@ -3574,7 +3574,7 @@ doit
 	classVars: #(  )
 	classInstVars: #(  )
 	poolDictionaries: #()
-	inDictionary: UserGlobals
+	inDictionary: Globals
 	options: #()
 )
 		category: 'RemoteServiceReplication-Platform-Test';
@@ -3628,35 +3628,6 @@ method: RsrAlreadyRegistered
 service: aService
 
 	service := aService
-%
-
-! Class implementation for 'RsrCycleDetected'
-
-!		Class methods for 'RsrCycleDetected'
-
-category: 'signaling'
-classmethod: RsrCycleDetected
-signal: anObject
-
-	^self new
-		object: anObject;
-		signal
-%
-
-!		Instance methods for 'RsrCycleDetected'
-
-category: 'accessing'
-method: RsrCycleDetected
-messageText
-
-	^'Cycle detected on: ', object printString
-%
-
-category: 'accessing'
-method: RsrCycleDetected
-object: anObject
-
-	object := anObject
 %
 
 ! Class implementation for 'RsrNonresumableError'
@@ -3772,6 +3743,7 @@ signal: anObject
 
 	^self new
 		object: anObject;
+		messageText: 'Instances of #', anObject class name, ' do not support replication.';
 		signal
 %
 
@@ -3788,8 +3760,7 @@ category: 'accessing'
 method: RsrUnsupportedObject
 object: anObject
 
-	object := anObject.
-	self messageText: 'Instances of ', object class name, ' cannot be serialized'
+	object := anObject
 %
 
 ! Class implementation for 'RsrObject'
@@ -3940,6 +3911,14 @@ connection: aConnection
 
 !		Instance methods for 'RsrService'
 
+category: 'public-accessing'
+method: RsrService
+connection
+	"Returns the Connection associated w/ the receiver."
+
+	^self _connection
+%
+
 category: 'public-debugging'
 method: RsrService
 debug: anException
@@ -3947,6 +3926,14 @@ raisedDuring: aMessageSend
 answerUsing: aResolver
 
 	aResolver break: (RsrRemoteException from: anException)
+%
+
+category: 'public-accessing'
+method: RsrService
+id
+	"Returns the Service ID associated w/ the receiver."
+
+	^self _id
 %
 
 category: 'public-testing'
@@ -3996,13 +3983,6 @@ preUpdate
 	^self
 %
 
-category: 'public-accessing'
-method: RsrService
-reflectedVariableNames
-
-	^RsrServiceSnapshot reflectedVariablesFor: self
-%
-
 category: 'public-registration'
 method: RsrService
 registerWith: aConnection
@@ -4022,6 +4002,7 @@ synchronize
 category: 'private-accessing'
 method: RsrService
 _connection
+	"Private - Returns the Connection associated w/ the receiver."
 
 	^_connection
 %
@@ -4029,6 +4010,7 @@ _connection
 category: 'private-accessing'
 method: RsrService
 _id
+	"Private - Returns the Service ID associated w/ the receiver."
 
 	^_id
 %
@@ -4037,6 +4019,7 @@ category: 'private-accessing'
 method: RsrService
 _id: anRsrId
 connection: aConnection
+	"Private - Configure this Service w/ a Service ID and Connection. This is a side-effect of registering a Service w/ a Connection."
 
 	_id := anRsrId.
 	_connection := aConnection.
@@ -4437,6 +4420,20 @@ method: RsrRemoteException
 messageText: aString
 
 	messageText := aString
+%
+
+category: 'printing'
+method: RsrRemoteException
+printOn: aStream
+
+	aStream
+		nextPutAll: exceptionClassName;
+		cr;
+		nextPutAll: messageText;
+		cr;
+		nextPutAll: '===================';
+		cr;
+		nextPutAll: stack
 %
 
 category: 'accessing'
@@ -5992,6 +5989,49 @@ reportOn: aLog
 	self subclassResponsibility
 %
 
+! Class implementation for 'RsrMessagingCommand'
+
+!		Instance methods for 'RsrMessagingCommand'
+
+category: 'executing'
+method: RsrMessagingCommand
+reifyAllIn: aConnection
+
+	| servicesStrongly |
+	"Must keep a strong reference to each service until we're sure a parent service is reified"
+	servicesStrongly := snapshots collect: [ :each | 
+		                    (each instanceIn: aConnection) preUpdate ].
+	snapshots do: [ :each | each reifyIn: aConnection ].
+	servicesStrongly do: [ :each | each postUpdate ].
+	^ servicesStrongly "Sender must keep a strong reference until the root is anchored."
+%
+
+category: 'accessing'
+method: RsrMessagingCommand
+snapshots
+
+	^snapshots
+%
+
+category: 'accessing'
+method: RsrMessagingCommand
+snapshots: anArrayOfSnapshots
+
+	snapshots := anArrayOfSnapshots
+%
+
+category: 'accessing'
+method: RsrMessagingCommand
+transaction
+	^ transaction
+%
+
+category: 'accessing'
+method: RsrMessagingCommand
+transaction: anObject
+	transaction := anObject
+%
+
 ! Class implementation for 'RsrDeliverResponse'
 
 !		Class methods for 'RsrDeliverResponse'
@@ -6025,17 +6065,24 @@ category: 'executing'
 method: RsrDeliverResponse
 executeFor: aConnection
 
-	| pendingMessage result |
+	| pendingMessage result servicesStrongly |
 	pendingMessage := aConnection pendingMessages
-		removeKey: self transaction
-		ifAbsent: [^self reportUnknownTransactionIn: aConnection].
-	[self snapshots do: [:each | each reifyIn: aConnection].
+		                  removeKey: self transaction
+		                  ifAbsent: [ 
+		                  ^ self reportUnknownTransactionIn: aConnection ].
+	"Must keep a strong reference to each service until the roots are referenced."
+	[ 
+	servicesStrongly := self reifyAllIn: aConnection.
 	result := self responseReference resolve: aConnection.
+	"result should now be the root of the services graph"
+	servicesStrongly := nil.
 	result first == #fulfill
-		ifTrue: [pendingMessage promise fulfill: result last]
-		ifFalse: [pendingMessage promise break: result last]]
+		ifTrue: [ pendingMessage promise fulfill: result last ]
+		ifFalse: [ pendingMessage promise break: result last ] ]
 		on: Error
-		do: [:ex | pendingMessage promise break: (RsrDecodingRaisedException exception: Exception)]
+		do: [ :ex | 
+			pendingMessage promise break:
+				(RsrDecodingRaisedException exception: ex) ]
 %
 
 category: 'reporting'
@@ -6078,87 +6125,6 @@ method: RsrDeliverResponse
 responseReference: aReference
 
 	responseReference := aReference
-%
-
-category: 'accessing'
-method: RsrDeliverResponse
-snapshots
-
-	^snapshots
-%
-
-category: 'accessing'
-method: RsrDeliverResponse
-snapshots: anArrayOfSnapshots
-
-	snapshots := anArrayOfSnapshots
-%
-
-category: 'accessing'
-method: RsrDeliverResponse
-transaction
-
-	^transaction
-%
-
-category: 'accessing'
-method: RsrDeliverResponse
-transaction: aTransactionId
-
-	transaction := aTransactionId
-%
-
-! Class implementation for 'RsrReleaseServices'
-
-!		Class methods for 'RsrReleaseServices'
-
-category: 'instance creation'
-classmethod: RsrReleaseServices
-sids: anArrayOfServiceIDs
-
-	^self new
-		sids: anArrayOfServiceIDs;
-		yourself
-%
-
-!		Instance methods for 'RsrReleaseServices'
-
-category: 'encoding'
-method: RsrReleaseServices
-encode: aStream
-using: anEncoder
-
-	anEncoder
-		encodeReleaseServices: self
-		onto: aStream
-%
-
-category: 'executing'
-method: RsrReleaseServices
-executeFor: aConnection
-
-	sids do: [:sid | aConnection _remoteClientReleased: sid]
-%
-
-category: 'reporting'
-method: RsrReleaseServices
-reportOn: aLog
-
-	aLog debug: 'RsrReleaseObjects(', self sids printString, ')'
-%
-
-category: 'accessing'
-method: RsrReleaseServices
-sids
-
-	^sids
-%
-
-category: 'accessing'
-method: RsrReleaseServices
-sids: anArrayOfServiceIDs
-
-	sids := anArrayOfServiceIDs
 %
 
 ! Class implementation for 'RsrSendMessage'
@@ -6210,30 +6176,30 @@ category: 'executing'
 method: RsrSendMessage
 executeFor: aConnection
 
-	| resolver services receiver selector arguments messageSend |
-	resolver := RsrRemotePromiseResolver
-		for: self
-		over: aConnection.
-	[[services := self snapshots collect: [:each | each reifyIn: aConnection].
+	| resolver servicesStrongly receiver selector arguments messageSend |
+	resolver := RsrRemotePromiseResolver for: self over: aConnection.
+	"Must keep a strong reference to each service until the roots are referenced."
+	[ 
+	[ 
+	servicesStrongly := self reifyAllIn: aConnection.
 	receiver := self receiverReference resolve: aConnection.
 	selector := self selectorReference resolve: aConnection.
-	arguments := self argumentReferences collect: [:each | each resolve: aConnection].
+	arguments := self argumentReferences collect: [ :each | 
+		             each resolve: aConnection ].
+	"receiver and arguments should now be the roots of the service graph, discard strong references."
+	servicesStrongly := nil.
 	resolver addRoot: receiver. "Ensure we always send back the receiver -- this ensures sending a message results in by-directional syncing."
 	messageSend := RsrMessageSend
-		receiver: receiver
-		selector: selector
-		arguments: arguments.
-	self
-		perform: messageSend
-		answerUsing: resolver]
+		               receiver: receiver
+		               selector: selector
+		               arguments: arguments.
+	self perform: messageSend answerUsing: resolver ]
 		on: self unhandledExceptionClass
-		do:
-			[:ex |
+		do: [ :ex | 
 			resolver break: (RsrRemoteException from: ex).
-			ex return]]
-		ensure:
-			[resolver hasResolved
-				ifFalse: [resolver break: 'Message send terminated without a result']]
+			ex return ] ] ensure: [ 
+		resolver hasResolved ifFalse: [ 
+			resolver break: 'Message send terminated without a result' ] ]
 %
 
 category: 'reporting'
@@ -6296,21 +6262,6 @@ receiverReference: aServiceReference
 	receiverReference := aServiceReference
 %
 
-category: 'decoding'
-method: RsrSendMessage
-reifyMessageSendIn: aConnection
-
-	| services receiver selector arguments |
-	services := self snapshots collect: [:each | each reifyIn: aConnection].
-	receiver := self receiverReference resolve: aConnection.
-	selector := self selectorReference resolve: aConnection.
-	arguments := self argumentReferences collect: [:each | each resolve: aConnection].
-	^RsrMessageSend
-		receiver: receiver
-		selector: selector
-		arguments: arguments
-%
-
 category: 'reporting'
 method: RsrSendMessage
 reportOn: aLog
@@ -6334,36 +6285,63 @@ selectorReference: aSymbolReference
 
 category: 'accessing'
 method: RsrSendMessage
-snapshots
-
-	^snapshots
-%
-
-category: 'accessing'
-method: RsrSendMessage
-snapshots: anArrayOfSnapshots
-
-	snapshots := anArrayOfSnapshots
-%
-
-category: 'accessing'
-method: RsrSendMessage
-transaction
-	^ transaction
-%
-
-category: 'accessing'
-method: RsrSendMessage
-transaction: anObject
-	transaction := anObject
-%
-
-category: 'accessing'
-method: RsrSendMessage
 unhandledExceptionClass
 	"Temporarily, use Error until we have appropriate GemStone hooks."
 
 	^Error
+%
+
+! Class implementation for 'RsrReleaseServices'
+
+!		Class methods for 'RsrReleaseServices'
+
+category: 'instance creation'
+classmethod: RsrReleaseServices
+sids: anArrayOfServiceIDs
+
+	^self new
+		sids: anArrayOfServiceIDs;
+		yourself
+%
+
+!		Instance methods for 'RsrReleaseServices'
+
+category: 'encoding'
+method: RsrReleaseServices
+encode: aStream
+using: anEncoder
+
+	anEncoder
+		encodeReleaseServices: self
+		onto: aStream
+%
+
+category: 'executing'
+method: RsrReleaseServices
+executeFor: aConnection
+
+	sids do: [:sid | aConnection _remoteClientReleased: sid]
+%
+
+category: 'reporting'
+method: RsrReleaseServices
+reportOn: aLog
+
+	aLog debug: 'RsrReleaseObjects(', self sids printString, ')'
+%
+
+category: 'accessing'
+method: RsrReleaseServices
+sids
+
+	^sids
+%
+
+category: 'accessing'
+method: RsrReleaseServices
+sids: anArrayOfServiceIDs
+
+	sids := anArrayOfServiceIDs
 %
 
 ! Class implementation for 'RsrConnection'
@@ -6786,9 +6764,23 @@ connectionA
 
 category: 'accessing'
 method: RsrInternalConnectionSpecification
+connectionA: anObject
+
+	^ connectionA := anObject
+%
+
+category: 'accessing'
+method: RsrInternalConnectionSpecification
 connectionB
 
 	^connectionB
+%
+
+category: 'accessing'
+method: RsrInternalConnectionSpecification
+connectionB: anObject
+
+	connectionB := anObject
 %
 
 ! Class implementation for 'RsrInMemoryConnectionSpecification'
@@ -9101,16 +9093,16 @@ method: RsrServiceSnapshot
 reifyIn: aConnection
 
 	| instance referenceStream |
+	"Instance should already be registered"
 	instance := self instanceIn: aConnection.
-	(self class reflectedVariablesFor: instance) size = slots size
-		ifFalse: [self error: 'Incorrected encoded instance detected'].
+	(self class reflectedVariablesFor: instance) size = slots size 
+		ifFalse: [ self error: 'Incorrectly encoded instance detected' ].
 	referenceStream := ReadStream on: slots.
-	instance preUpdate.
-	self class
-		reflectedVariableIndicesFor: instance
-		do: [:index | instance instVarAt: index put: (referenceStream next resolve: aConnection)].
-	instance postUpdate.
-	^instance
+	self class reflectedVariableIndicesFor: instance do: [ :index | 
+		instance
+			instVarAt: index
+			put: (referenceStream next resolve: aConnection) ].
+	^ instance
 %
 
 category: 'testing'
@@ -9238,35 +9230,35 @@ category: 'analyzing'
 method: RsrSnapshotAnalysis
 analyze: anObject
 
-	^(self referenceClassFor: anObject)
-		analyze: anObject
-		using: self
+	(analyzedObjects includes: anObject) ifTrue: [ ^ self ].
+	analyzedObjects add: anObject.
+	^ (self referenceClassFor: anObject) analyze: anObject using: self
 %
 
 category: 'analyzing'
 method: RsrSnapshotAnalysis
 analyzeCollection: aCollection
 
-	self
-		analyzing: aCollection
-		during: [aCollection do: [:each | self analyze: each]].
-	^aCollection
+	aCollection do: [ :each | self analyze: each ].
+	^ aCollection
 %
 
 category: 'analyzing'
 method: RsrSnapshotAnalysis
 analyzeDictionary: aDictionary
 
-	self
-		analyzing: aDictionary
-		during:
-			[aDictionary
-				keysAndValuesDo:
-					[:key :value |
-					self
-						analyze: key;
-						analyze: value]].
-	^aDictionary
+	aDictionary keysAndValuesDo: [ :key :value | 
+		self
+			analyze: key;
+			analyze: value ].
+	^ aDictionary
+%
+
+category: 'accessing'
+method: RsrSnapshotAnalysis
+analyzedObjects
+
+	^ analyzedObjects
 %
 
 category: 'analyzing'
@@ -9281,25 +9273,10 @@ method: RsrSnapshotAnalysis
 analyzeService: aService
 
 	self ensureRegistered: aService.
-	self
-		analyzing: aService
-		during:
-			[RsrServiceSnapshot
-				reflectedVariablesFor: aService
-				do: [:each | self analyze: each]].
+	RsrServiceSnapshot
+		reflectedVariablesFor: aService
+		do: [ :each | self analyze: each ].
 	snapshots add: (RsrServiceSnapshot from: aService)
-%
-
-category: 'analyzing'
-method: RsrSnapshotAnalysis
-analyzing: anObject
-during: aBlock
-
-	(inFlight includes: anObject)
-		ifTrue: [^RsrCycleDetected signal: anObject].
-	inFlight add: anObject.
-	aBlock value.
-	inFlight remove: anObject
 %
 
 category: 'accessing'
@@ -9331,7 +9308,7 @@ initialize
 
 	super initialize.
 	snapshots := OrderedCollection new.
-	inFlight := IdentitySet new
+	analyzedObjects := IdentitySet new
 %
 
 category: 'actions'
@@ -11786,15 +11763,6 @@ analyze: anObject
 	^analysis
 %
 
-category: 'utilites'
-method: RsrSnapshotAnalysisTest
-assertCycle: anObject
-
-	self
-		should: [self analyze: anObject]
-		raise: RsrCycleDetected
-%
-
 category: 'running'
 method: RsrSnapshotAnalysisTest
 setUp
@@ -11820,33 +11788,58 @@ category: 'running'
 method: RsrSnapshotAnalysisTest
 testArrayCycle
 
-	| array |
+	| array analysis |
 	array := Array new: 1.
-	array
-		at: 1
-		put: array.
-	self assertCycle: array.
-	array
-		at: 1
-		put: { array }.
-	self assertCycle: array
+	array at: 1 put: array.
+	analysis := self analyze: array.
+	self
+		assert: analysis snapshots size equals: 0;
+		assert: analysis analyzedObjects size equals: 1.
+	array at: 1 put: { array }.
+	analysis := self analyze: array.
+	self
+		assert: analysis snapshots size equals: 0;
+		assert: analysis analyzedObjects size equals: 2.
 %
 
 category: 'running'
 method: RsrSnapshotAnalysisTest
 testDictionaryCycle
 
-	| dictionary |
+	| dictionary analysis |
 	dictionary := Dictionary new.
-	dictionary
-		at: 1
-		put: dictionary.
-	self assertCycle: dictionary.
+	dictionary at: 1 put: dictionary.
+	analysis := self analyze: dictionary.
+	self
+		assert: analysis snapshots size equals: 0;
+		assert: analysis analyzedObjects size equals: 2.
+
 	dictionary removeKey: 1.
-	dictionary
-		at: dictionary
-		put: 1.
-	self assertCycle: dictionary
+	dictionary at: dictionary put: 1.
+	analysis := self analyze: dictionary.
+	self
+		assert: analysis snapshots size equals: 0;
+		assert: analysis analyzedObjects size equals: 2
+%
+
+category: 'running'
+method: RsrSnapshotAnalysisTest
+testMultiPathsToSameService
+
+	"Tests issue 76, Unnecessary duplicate snapshots being sent."
+
+	| childService parentService orderedCollection analysis |
+	childService := RsrRemoteAction clientClass new.
+	parentService := RsrRemoteAction clientClass sharedVariable:
+		                 childService.
+	orderedCollection := OrderedCollection
+		                     with: childService
+		                     with: parentService.
+	analysis := self analyze: orderedCollection.
+	self assert: analysis snapshots size equals: 2.
+	self
+		assert: parentService isMirrored;
+		assert: childService isMirrored
 %
 
 category: 'running'
@@ -11888,12 +11881,19 @@ category: 'running'
 method: RsrSnapshotAnalysisTest
 testOrderedCollectionCycle
 
-	| oc |
+	| oc analysis |
 	oc := OrderedCollection new.
 	oc add: oc.
-	self assertCycle: oc.
+	analysis := self analyze: oc.
+	self
+		assert: analysis snapshots size equals: 0;
+		assert: analysis analyzedObjects size equals: 1.
+
 	oc := OrderedCollection with: (Array with: oc).
-	self assertCycle: oc.
+	analysis := self analyze: oc.
+	self
+		assert: analysis snapshots size equals: 0;
+		assert: analysis analyzedObjects size equals: 3
 %
 
 category: 'running'
@@ -11955,26 +11955,35 @@ testServiceReferencingAnotherService
 category: 'running'
 method: RsrSnapshotAnalysisTest
 testServiceWithCycle
-	"Cycles are disallowed for our POC. Perhaps they will get added later?"
 
-	| rootClient referencedClient |
+	| rootClient referencedClient analysis |
 	rootClient := RsrRemoteAction new.
 	referencedClient := RsrRemoteAction sharedVariable: rootClient.
 	rootClient sharedVariable: referencedClient.
-	self assertCycle: rootClient
+	analysis := self analyze: rootClient.
+	self
+		assert: analysis snapshots size equals: 2;
+		assert: analysis analyzedObjects size equals: 2
 %
 
 category: 'running'
 method: RsrSnapshotAnalysisTest
 testSetCycle
 
-	| set |
+	| set analysis |
 	set := Set new.
 	set add: set.
-	self assertCycle: set.
+	analysis := self analyze: set.
+	self
+		assert: analysis snapshots size equals: 0;
+		assert: analysis analyzedObjects size equals: 1.
+
 	set := Set new.
 	set add: (Array with: set).
-	self assertCycle: set
+	analysis := self analyze: set.
+	self
+		assert: analysis snapshots size equals: 0;
+		assert: analysis analyzedObjects size equals: 2
 %
 
 ! Class implementation for 'RsrSocketStreamTestCase'
@@ -13217,10 +13226,10 @@ testReturnInvalidObject
 		equals: #RsrUnsupportedObject.
 	self
 		assert: reason tag
-		equals: 'Instances of Object cannot be serialized'.
+		equals: 'Instances of #Object do not support replication.'.
 	self
 		assert: reason messageText
-		equals: 'Instances of Object cannot be serialized'.
+		equals: 'Instances of #Object do not support replication.'.
 	self
 		assert: reason stack isString;
 		assert: reason stack size > 0
@@ -13573,8 +13582,8 @@ testReflectedVariableNames
 	client := connectionA serviceFor: #RsrTestService.
 	client synchronize.
 	server := connectionB serviceAt: client _id.
-	clientNames := client reflectedVariableNames.
-	serverNames := server reflectedVariableNames.
+	clientNames := RsrServiceSnapshot reflectedVariablesFor: client.
+	serverNames := RsrServiceSnapshot reflectedVariablesFor: server.
 	self
 		assert: clientNames
 		equals: serverNames.
@@ -13587,8 +13596,8 @@ testReflectedVariableNames
 	client := connectionA serviceFor: #RsrReflectedVariableTestServiceB.
 	client synchronize.
 	server := connectionB serviceAt: client _id.
-	clientNames := client reflectedVariableNames.
-	serverNames := server reflectedVariableNames.
+	clientNames := RsrServiceSnapshot reflectedVariablesFor: client.
+	serverNames := RsrServiceSnapshot reflectedVariablesFor: server.
 	self
 		assert: clientNames
 		equals: serverNames.

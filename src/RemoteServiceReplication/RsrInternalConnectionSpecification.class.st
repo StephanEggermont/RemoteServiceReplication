@@ -31,7 +31,19 @@ RsrInternalConnectionSpecification >> connectionA [
 ]
 
 { #category : 'accessing' }
+RsrInternalConnectionSpecification >> connectionA: anObject [
+
+	^ connectionA := anObject
+]
+
+{ #category : 'accessing' }
 RsrInternalConnectionSpecification >> connectionB [
 
 	^connectionB
+]
+
+{ #category : 'accessing' }
+RsrInternalConnectionSpecification >> connectionB: anObject [
+
+	connectionB := anObject
 ]

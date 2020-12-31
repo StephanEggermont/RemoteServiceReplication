@@ -25,6 +25,11 @@ RsrForwarder >> asSpotterProcessorLink [
 	^_service asSpotterProcessorLink
 ]
 
+{ #category : 'accessing' }
+RsrForwarder >> basicSize [
+	^ 0
+]
+
 { #category : 'Glamour-Morphic-Brick' }
 RsrForwarder >> brickAlert [
 
@@ -152,6 +157,12 @@ RsrForwarder >> hasDynamicItems [
 RsrForwarder >> inspectInExternalWindow [
 
 	^_service inspectInExternalWindow
+]
+
+{ #category : 'testing' }
+RsrForwarder >> isKindOf: ignored [
+
+	^ false
 ]
 
 { #category : 'Glamour-Morphic-Brick' }

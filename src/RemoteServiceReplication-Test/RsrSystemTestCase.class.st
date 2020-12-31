@@ -68,18 +68,6 @@ RsrSystemTestCase >> initializeSocketConnections [
 		assert: connectionB isOpen
 ]
 
-{ #category : 'accessing' }
-RsrSystemTestCase >> serviceFactoryA [
-
-	^connectionA serviceFactory
-]
-
-{ #category : 'accessing' }
-RsrSystemTestCase >> serviceFactoryB [
-
-	^connectionB serviceFactory
-]
-
 { #category : 'initialization' }
 RsrSystemTestCase >> setUp [
 	"Subclasses need to start their connections by calling

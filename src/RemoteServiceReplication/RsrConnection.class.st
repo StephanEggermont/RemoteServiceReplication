@@ -16,7 +16,6 @@ Class {
 		'log',
 		'registry',
 		'pendingMessages',
-		'serviceFactory',
 		'closeSemaphore',
 		'specification'
 	],
@@ -202,7 +201,6 @@ RsrConnection >> close [
 	pendingMessages := temp.
 	pm do: [:each | each promise break: RsrConnectionClosed new].
 	registry := RsrThreadSafeDictionary new.
-	serviceFactory := nil.
 	closeSemaphore signal
 ]
 
@@ -216,16 +214,6 @@ RsrConnection >> initialize [
 	dispatchQueue := RsrDispatchQueue new.
 	log := RsrLog new.
 	closeSemaphore := Semaphore new.
-]
-
-{ #category : 'private-initialization' }
-RsrConnection >> initializeServiceFactory [
-
-	| instance |
-	instance := RsrServiceFactory clientClass new.
-	self _ensureRegistered: instance.
-	serviceFactory := instance.
-	^serviceFactory
 ]
 
 { #category : 'public-testing' }
@@ -315,18 +303,6 @@ ifAbsent: aBlock [
 	^entry service
 		ifNil: aBlock
 		ifNotNil: [:service | service]
-]
-
-{ #category : 'public-service factory' }
-RsrConnection >> serviceFactory [
-
-	^serviceFactory ifNil: [self initializeServiceFactory]
-]
-
-{ #category : 'public-service factory' }
-RsrConnection >> serviceFor: aResponsibility [
-
-	^self serviceFactory serviceFor: aResponsibility
 ]
 
 { #category : 'public-accessing' }

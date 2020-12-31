@@ -1,13 +1,13 @@
 exec
-	| connection |
+	| spec connection |
 	GsFile gciLogClient: '==============================================================='.
 	GsFile gciLogClient: 'Starting to listen'.
 	GsFile gciLogClient: '==============================================================='.
-	connection := RsrConnection acceptOn: 4321.
-	"connection log addSink: [:string | GsFile gciLogClient: string]."
+	spec := RsrAcceptConnection port: 29299.
+	connection := spec waitForConnection.
+	"connection log addSink: (RsrCustomSink action: [:string | GsFile gciLogClient: string])."
 	connection waitUntilClose.
 	GsFile gciLogClient: '==============================================================='.
 	GsFile gciLogClient: 'Connection closed!'.
 	GsFile gciLogClient: '==============================================================='.
 %
-

@@ -20,8 +20,9 @@ RsrMessageSendingTest >> terminateCurrentProcess [
 RsrMessageSendingTest >> testAsyncRemoteError [
 
 	| client server reason |
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [Error new tag: 'tag'; messageText: 'messageText'; signal].
 	reason := self expectCatch: client asyncValue.
@@ -44,8 +45,9 @@ RsrMessageSendingTest >> testAsyncRemoteError [
 RsrMessageSendingTest >> testAsyncReturnArgument [
 
 	| client server promise result |
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [:arg | arg].
 	promise := client asyncValue: client.
@@ -59,8 +61,9 @@ RsrMessageSendingTest >> testAsyncReturnArgument [
 RsrMessageSendingTest >> testAsyncReturnService [
 
 	| client server service |
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [RsrValueHolderServer new].
 	service := self expectWhen: client asyncValue.
@@ -74,8 +77,9 @@ RsrMessageSendingTest >> testChangeRemoteState [
 
 	| marker client server |
 	marker := false.
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [marker := true].
 	client value.
@@ -86,8 +90,9 @@ RsrMessageSendingTest >> testChangeRemoteState [
 RsrMessageSendingTest >> testCloseConnectionDuringMessageSend [
 
 	| client server promise reason |
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [(Delay forSeconds: 10) wait].
 	promise := client asyncValue.
@@ -105,8 +110,9 @@ RsrMessageSendingTest >> testDebugHandlerBreak [
 
 	| marker client server reason |
 	marker := #testMarker.
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [RsrResumableError signal. 42 "ensure we do not return the marker"].
 	server debugHandler: [:exception :messageSend :resolver | resolver break: marker. nil "ensure we do not return the marker"].
@@ -128,8 +134,9 @@ RsrMessageSendingTest >> testDebugHandlerException [
 
 	| marker client server reason |
 	marker := #testMarker.
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [RsrResumableError signal].
 	server debugHandler: [:exception :messageSend :resolver | Error signal].
@@ -151,8 +158,9 @@ RsrMessageSendingTest >> testDebugHandlerFulfill [
 
 	| marker client server |
 	marker := #testMarker.
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [RsrResumableError signal. 42 "ensure we do not return the marker"].
 	server debugHandler: [:exception :messageSend :resolver | resolver fulfill: marker. nil "ensure we do not return the marker"].
@@ -173,8 +181,9 @@ RsrMessageSendingTest >> testDebugHandlerNoResolutionWithNonresumableException [
 
 	| marker client server reason |
 	marker := #testMarker.
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [RsrNonresumableError signal].
 	server debugHandler: [:exception :messageSend :resolver | marker].
@@ -192,8 +201,9 @@ RsrMessageSendingTest >> testDebugHandlerNoResolutionWithResumableException [
 
 	| marker client server |
 	marker := #testMarker.
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [RsrResumableError signal].
 	server debugHandler: [:exception :messageSend :resolver | marker].
@@ -206,8 +216,9 @@ RsrMessageSendingTest >> testDebugHandlerNoResolutionWithResumableException [
 RsrMessageSendingTest >> testPrePostUpdate [
 
 	| client server pre post |
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	pre := post := false.
 	server
@@ -224,8 +235,9 @@ RsrMessageSendingTest >> testPrePostUpdate [
 RsrMessageSendingTest >> testPrePostUpdateError [
 
 	| client server reason |
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [true].
 	self assert: client value.
@@ -255,8 +267,9 @@ RsrMessageSendingTest >> testPrePostUpdateError [
 RsrMessageSendingTest >> testRemoteError [
 
 	| client server reason |
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [Error new tag: 'tag'; messageText: 'messageText'; signal].
 	[client value]
@@ -281,8 +294,9 @@ RsrMessageSendingTest >> testRemoteError [
 RsrMessageSendingTest >> testRemoteErrorWithTag [
 
 	| client server tag messageText reason |
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	tag := nil.
 	messageText := 'messageText'.
@@ -320,8 +334,9 @@ RsrMessageSendingTest >> testRemoteErrorWithTag [
 RsrMessageSendingTest >> testRemoteProcessTerminationDuringDebugHandler [
 
 	| client server reason |
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server
 		action: [Error signal];
@@ -336,8 +351,9 @@ RsrMessageSendingTest >> testRemoteProcessTerminationDuringDebugHandler [
 RsrMessageSendingTest >> testRemoteProcessTerminationDuringMessageSend [
 
 	| client server reason |
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [self terminateCurrentProcess].
 	reason := self expectCatch: client asyncValue.
@@ -350,8 +366,9 @@ RsrMessageSendingTest >> testRemoteProcessTerminationDuringMessageSend [
 RsrMessageSendingTest >> testRemoteProcessTerminationDuringPrePostUpdate [
 
 	| client server reason |
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server
 		preUpdateHandler: [self terminateCurrentProcess];
@@ -369,8 +386,9 @@ RsrMessageSendingTest >> testReturnAlsoUpdatesLocalService [
 	that it is also sent to update the local service."
 
 	| client server value response |
-	client := self serviceFactoryA serviceFor: #RsrReflectedVariableTestServiceB.
-	client synchronize.
+	client := RsrReflectedVariableTestClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	value := 42.
 	self
@@ -401,8 +419,9 @@ RsrMessageSendingTest >> testReturnAlsoUpdatesLocalService [
 RsrMessageSendingTest >> testReturnArgument [
 
 	| client server arguments dt response |
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [:object | object].
 	arguments := OrderedCollection new
@@ -447,9 +466,10 @@ RsrMessageSendingTest >> testReturnArgument [
 { #category : 'running-errors' }
 RsrMessageSendingTest >> testReturnInvalidObject [
 
-	| client server reason |			
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	| client server reason |
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [Object new].
 	self
@@ -477,8 +497,9 @@ RsrMessageSendingTest >> testReturnInvalidObject [
 RsrMessageSendingTest >> testReturnNewService [
 
 	| client server returnedService |
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [RsrValueHolderServer new].
 	returnedService := client value.
@@ -491,8 +512,9 @@ RsrMessageSendingTest >> testReturnNewService [
 RsrMessageSendingTest >> testReturnNewServiceInArray [
 
 	| client server array returnedService |
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [Array with: RsrValueHolderServer new].
 	array := client value.
@@ -506,8 +528,9 @@ RsrMessageSendingTest >> testReturnNewServiceInArray [
 RsrMessageSendingTest >> testReturnSymbol [
 
 	| client server symbol result |
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	symbol := #testSymbol.
 	server action: [symbol].
@@ -520,9 +543,10 @@ RsrMessageSendingTest >> testReturnSymbol [
 { #category : 'running-errors' }
 RsrMessageSendingTest >> testSendInvalidObject [
 
-	| client server |			
-	client := connectionA serviceFor: #RsrRemoteAction.
-	client synchronize.
+	| client server |
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: [:arg | arg].
 	self
@@ -534,10 +558,11 @@ RsrMessageSendingTest >> testSendInvalidObject [
 RsrMessageSendingTest >> testUnimplementedRemoteSend [
 	"Ensure a remote DNU is reported back to the sender."
 
-	| marker client server reason |
+	| marker client reason |
 	marker := #testMarker.
-	client := connectionA serviceFor: #RsrServiceNoInstVars.
-	client synchronize.
+	client := RsrClientNoInstVars new
+		registerWith: connectionA;
+		synchronize.
 	reason := self expectCatch: client unimplementedRemoteSend.
 	self
 		assert: reason class

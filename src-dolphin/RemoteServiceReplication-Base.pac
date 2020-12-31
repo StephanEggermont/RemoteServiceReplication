@@ -34,6 +34,7 @@ package classNames
 	add: #RsrSocketError;
 	add: #RsrValueReference;
 	add: #RsrAlreadyRegistered;
+	add: #RsrOutOfRange;
 	add: #RsrDateAndTime;
 	add: #RsrDateAndTimeReference;
 	add: #RsrUnknownClass;
@@ -154,6 +155,14 @@ RsrError
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 !RsrNonresumableError categoriesForClass!RemoteServiceReplication-Base! !
+
+RsrError
+	subclass: #RsrOutOfRange
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+!RsrOutOfRange categoriesForClass!RemoteServiceReplication-Base! !
 
 RsrError
 	subclass: #RsrPromiseError

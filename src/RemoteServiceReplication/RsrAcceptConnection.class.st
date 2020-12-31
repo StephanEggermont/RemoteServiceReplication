@@ -45,7 +45,7 @@ RsrAcceptConnection >> isWaitingForConnection [
 { #category : 'connecting' }
 RsrAcceptConnection >> waitForConnection [
 
-	| socket channel connection |
+	| socket stream handshake channel connection |
 	listener := self socketClass new.
 	[listener
 		bindAddress: self host
@@ -57,6 +57,9 @@ RsrAcceptConnection >> waitForConnection [
 			ensure:
 				[listener close.
 				listener := nil].
+	stream := RsrSocketStream on: socket.
+	handshake := RsrServerHandshake over: stream.
+	handshake perform.
 	channel := RsrSocketChannel socket: socket.
 	connection := RsrConnection
 		specification: self

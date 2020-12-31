@@ -56,7 +56,7 @@ RsrDeliverResponse >> executeFor: aConnection [
 		on: Error
 		do: [ :ex | 
 			pendingMessage promise break:
-				(RsrDecodingRaisedException exception: Exception) ]
+				(RsrDecodingRaisedException exception: ex) ]
 ]
 
 { #category : 'reporting' }

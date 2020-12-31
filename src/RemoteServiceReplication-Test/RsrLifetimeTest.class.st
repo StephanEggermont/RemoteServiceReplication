@@ -15,8 +15,9 @@ RsrLifetimeTest >> evaluateAsRemoteAction: aBlock [
 	"Evaluate the block and return the result through RSR."
 
 	| client server |
-	client := connectionA serviceFor: #RsrRemoteActionClient.
-	client synchronize.
+	client := RsrRemoteActionClient new
+		registerWith: connectionA;
+		synchronize.
 	server := connectionB serviceAt: client _id.
 	server action: aBlock.
 	^client value
@@ -28,8 +29,9 @@ RsrLifetimeTest >> testEnsurePushedClientServerLifetime [
 	exhibit the correct lifetime properties."
 
 	| client sid server actual |
-	client := connectionA serviceFor: #RsrClientNoInstVars.
-	client synchronize.
+	client := RsrClientNoInstVars new
+		registerWith: connectionA;
+		synchronize.
 	sid := client _id.
 	self maximumReclamation. "Ensure the Server is strongly referenced in connectionB."
 	server := connectionB
@@ -63,14 +65,14 @@ RsrLifetimeTest >> testEnsurePushedClientServerLifetime [
 ]
 
 { #category : 'running' }
-RsrLifetimeTest >> testEnsureReturnRegisteredServerLifetime [
-	"Return a newly created Server (that is registered.) It should persist in the framework until 
+RsrLifetimeTest >> testEnsureReturnedServerLifetime [
+	"Return a newly created Server (that is not registered.) It should persist in the framework until 
 	both the associated Client is garbage collected and local references are dropped.
 
-	If you change this method -- change #testEnsureReturnedServerLifetime as well."
+	If you change this method -- change #testEnsureReturnRegisteredServerLifetime as well."
 
 	| client sid server result |
-	client := self evaluateAsRemoteAction: [RsrServerNoInstVars new registerWith: connectionB].
+	client := self evaluateAsRemoteAction: [RsrServerNoInstVars new].
 	sid := client _id.
 	self maximumReclamation. "Ensure the Server instance is referenced."
 	server := connectionB
@@ -105,14 +107,14 @@ RsrLifetimeTest >> testEnsureReturnRegisteredServerLifetime [
 ]
 
 { #category : 'running' }
-RsrLifetimeTest >> testEnsureReturnedServerLifetime [
-	"Return a newly created Server (that is not registered.) It should persist in the framework until 
+RsrLifetimeTest >> testEnsureReturnRegisteredServerLifetime [
+	"Return a newly created Server (that is registered.) It should persist in the framework until 
 	both the associated Client is garbage collected and local references are dropped.
 
-	If you change this method -- change #testEnsureReturnRegisteredServerLifetime as well."
+	If you change this method -- change #testEnsureReturnedServerLifetime as well."
 
 	| client sid server result |
-	client := self evaluateAsRemoteAction: [RsrServerNoInstVars new].
+	client := self evaluateAsRemoteAction: [RsrServerNoInstVars new registerWith: connectionB].
 	sid := client _id.
 	self maximumReclamation. "Ensure the Server instance is referenced."
 	server := connectionB

@@ -103,6 +103,19 @@ RsrRemoteException >> messageText: aString [
 	messageText := aString
 ]
 
+{ #category : 'printing' }
+RsrRemoteException >> printOn: aStream [
+
+	aStream
+		nextPutAll: exceptionClassName;
+		cr;
+		nextPutAll: messageText;
+		cr;
+		nextPutAll: '===================';
+		cr;
+		nextPutAll: stack
+]
+
 { #category : 'accessing' }
 RsrRemoteException >> stack [
 
