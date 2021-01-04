@@ -1,6 +1,6 @@
 Extension { #name : 'RsrSendMessage' }
 
-{ #category : '*RemoteServiceReplication-Pharo' }
+{ #category : '*RemoteServiceReplication-PharoExtensions' }
 RsrSendMessage >> _registerDebugActionBlock [
 "noop for Pharo"
 ]
