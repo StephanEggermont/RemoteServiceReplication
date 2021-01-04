@@ -1,10 +1,10 @@
 Class {
-	#name : 'BaselineOfRemoteServiceReplication',
-	#superclass : 'BaselineOf',
-	#category : 'BaselineOfRemoteServiceReplication'
+	#name : #BaselineOfRemoteServiceReplication,
+	#superclass : #BaselineOf,
+	#category : #BaselineOfRemoteServiceReplication
 }
 
-{ #category : 'baselines' }
+{ #category : #baselines }
 BaselineOfRemoteServiceReplication >> baseline: spec [
 	<baseline>
 	spec
@@ -18,10 +18,12 @@ BaselineOfRemoteServiceReplication >> baseline: spec [
 		for: #pharo
 			do: [ spec
 				package: 'TonelFixes';
+				package: 'RemoteServiceReplication-PharoExtensions'
+					with: [ spec requires: #('RemoteServiceReplication') ];
 				package: 'RemoteServiceReplication-Pharo'
 					with: [ spec requires: #('TonelFixes' 'RemoteServiceReplication-Base') ];
 				package: 'RemoteServiceReplication'
-					with: [ spec requires: #('RemoteServiceReplication-Pharo') ] ].
+					with: [ spec requires: #('RemoteServiceReplication-Pharo') ; includes: #('RemoteServiceReplication-PharoExtensions')] ].
 	spec
 		group: 'default' with: #('All');
 		group: 'All' with: #('RemoteServiceReplication-Test');
@@ -29,7 +31,7 @@ BaselineOfRemoteServiceReplication >> baseline: spec [
 		group: 'Tests' with: #('RemoteServiceReplication-Test')
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 BaselineOfRemoteServiceReplication >> projectClass [
 	Smalltalk at: #'MetacelloCypressBaselineProject' ifPresent: [ :cl | ^ cl ].
 	^ super projectClass
