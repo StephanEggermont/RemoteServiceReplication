@@ -82,7 +82,9 @@ RsrConnection >> _forwarderClass [
 RsrConnection >> _receivedCommand: aCommand [
 	"Execute the command in the context of the receiving Connection."
 
-	RsrProcessModel fork: [aCommand executeFor: self]
+	RsrProcessModel
+		fork: [aCommand executeFor: self]
+		named: 'Processing ', aCommand class name
 ]
 
 { #category : 'private-service management' }
@@ -219,7 +221,7 @@ RsrConnection >> initialize [
 { #category : 'public-testing' }
 RsrConnection >> isOpen [
 
-	^channel isOpen
+	^channel isConnected
 ]
 
 { #category : 'private-accessing' }

@@ -760,7 +760,7 @@ server	^server! !
 setUp	super setUp.	self		initializeConnections;		initializeServices! !
 
 !RsrStressTest methodsFor!
-concurrentlyRun: aBlock	| anyCurtailed semaphores |	anyCurtailed := false.	semaphores := (1 to: self numThreads) collect: [:each | Semaphore new].	semaphores do: [:semaphore | RsrProcessModel fork: [[self repeatedlyRun: aBlock. semaphore signal] ifCurtailed: [anyCurtailed := true. semaphore signal]]].	semaphores do: [:semaphore | semaphore wait].	self deny: anyCurtailed! !
+concurrentlyRun: aBlock	| anyCurtailed semaphores |	anyCurtailed := false.	semaphores := (1 to: self numThreads) collect: [:each | Semaphore new].	semaphores do: [:semaphore | RsrProcessModel fork: [[self repeatedlyRun: aBlock. semaphore signal] ifCurtailed: [anyCurtailed := true. semaphore signal]] named: 'Concurrent Test Thread'].	semaphores do: [:semaphore | semaphore wait].	self deny: anyCurtailed! !
 
 !RsrStressTest methodsFor!
 client	^client! !
@@ -835,13 +835,13 @@ initializeConnections	self initializeInMemoryConnections! !
 testAsyncFulfill	| promise semaphore expected catchRan first second third |	promise := RsrPromise new.	semaphore := Semaphore new.	expected := Object new.	catchRan := false.	promise		when: [:object | first := object. semaphore signal]		catch: [:reason | catchRan := true. semaphore signal].	promise		when: [:object | second := object. semaphore signal]		catch: [:reason | catchRan := true. semaphore signal].	self		deny: promise isResolved;		deny: promise isBroken;		deny: promise isFulfilled.	promise fulfill: expected.	self		assert: promise isResolved;		deny: promise isBroken;		assert: promise isFulfilled.	semaphore wait; wait.	self shortWait. "Ensure any catch blocks run if they are going to schedule."	self deny: catchRan.	self		assert: first		identicalTo: expected.	self		assert: second		identicalTo: expected.	promise		when: [:object | third := object. semaphore signal]		catch: [:reason | catchRan := true. semaphore signal].	semaphore wait.	self shortWait.	self deny: catchRan.	self		assert: third		identicalTo: expected! !
 
 !RsrPromiseTest methodsFor!
-testSyncBreak	| promise expected exceptionRaised first second third |	promise := RsrPromise new.	expected := Object new.	exceptionRaised := false.	self fork: [[promise wait] on: RsrBrokenPromise do: [:ex | exceptionRaised := true. first := ex reason. ex return]].	self fork: [[promise wait] on: RsrBrokenPromise do: [:ex | exceptionRaised := true. second := ex reason. ex return]].	promise break: expected.	self shortWait. "Allow results to process."	self assert: exceptionRaised.	self		assert: first		identicalTo: expected.	self		assert: second		identicalTo: expected.	self		should: [promise wait]		raise: RsrBrokenPromise.	third := [promise wait]		on: RsrBrokenPromise		do: [:ex | ex return: ex reason].	self		assert: third		identicalTo: expected! !
+testSyncBreak	| promise expected exceptionRaised first second third |	promise := RsrPromise new.	expected := Object new.	exceptionRaised := false.	RsrProcessModel		fork: [[promise wait] on: RsrBrokenPromise do: [:ex | exceptionRaised := true. first := ex reason. ex return]]		named: 'Pending BrokenPromise'.	RsrProcessModel		fork: [[promise wait] on: RsrBrokenPromise do: [:ex | exceptionRaised := true. second := ex reason. ex return]]		named: 'Pending BrokenPromise'.	promise break: expected.	self shortWait. "Allow results to process."	self assert: exceptionRaised.	self		assert: first		identicalTo: expected.	self		assert: second		identicalTo: expected.	self		should: [promise wait]		raise: RsrBrokenPromise.	third := [promise wait]		on: RsrBrokenPromise		do: [:ex | ex return: ex reason].	self		assert: third		identicalTo: expected! !
 
 !RsrPromiseTest methodsFor!
 testAsyncBreak	| promise semaphore expected whenRan first second third |	promise := RsrPromise new.	semaphore := Semaphore new.	expected := Object new.	whenRan := false.	promise		when: [:object | whenRan := true. semaphore signal]		catch: [:reason | first := reason. semaphore signal].	promise		when: [:object | whenRan := true. semaphore signal]		catch: [:reason | second := reason. semaphore signal].	self		deny: promise isResolved;		deny: promise isBroken;		deny: promise isFulfilled.	promise break: expected.	self		assert: promise isResolved;		assert: promise isBroken;		deny: promise isFulfilled.	semaphore wait; wait.	self shortWait. "Ensure any when blocks run if they are going to schedule."	self deny: whenRan.	self		assert: first		identicalTo: expected.	self		assert: second		identicalTo: expected.	promise		when: [:object | whenRan := true. semaphore signal]		catch: [:reason | third := reason. semaphore signal].	semaphore wait.	self shortWait.	self deny: whenRan.	self		assert: third		identicalTo: expected! !
 
 !RsrPromiseTest methodsFor!
-testSyncFulfill	| promise expected exceptionRaised first second |	promise := RsrPromise new.	expected := Object new.	exceptionRaised := false.	self fork: [[first := promise wait] on: RsrBrokenPromise do: [:ex | exceptionRaised := true. ex return]].	self fork: [[second := promise wait] on: RsrBrokenPromise do: [:ex | exceptionRaised := true. ex return]].	promise fulfill: expected.	self shortWait. "Allow results to process."	self deny: exceptionRaised.	self		assert: first		identicalTo: expected.	self		assert: second		identicalTo: expected.	self		assert: promise wait		identicalTo: expected! !
+testSyncFulfill	| promise expected exceptionRaised first second |	promise := RsrPromise new.	expected := Object new.	exceptionRaised := false.	RsrProcessModel		fork: [[first := promise wait] on: RsrBrokenPromise do: [:ex | exceptionRaised := true. ex return]]		named: 'Pending BrokenPromise'.	RsrProcessModel		fork: [[second := promise wait] on: RsrBrokenPromise do: [:ex | exceptionRaised := true. ex return]]		named: 'Pending BrokenPromise'.	promise fulfill: expected.	self shortWait. "Allow results to process."	self deny: exceptionRaised.	self		assert: first		identicalTo: expected.	self		assert: second		identicalTo: expected.	self		assert: promise wait		identicalTo: expected! !
 
 !RsrEncoderTest methodsFor!
 testNaN	| encoding |	"Signaling NaN is not tested.	Negative NaN is not tested."	encoding :=		#[0 0 0 0 0 0 0 0],		#[0 0 0 0 0 0 0 15],		#[255 248 0 0 0 0 0 0].	self		verifyImmediate: RsrDoubleReference nan		encoding: encoding.! !
@@ -1039,7 +1039,7 @@ testInteger	self		verify: 0;		verify: -1;		verify: 1;		verify: (2 raisedTo
 testSymbol	self		verify: #'';		verify: #symbol! !
 
 !RsrConnectionTestCase methodsFor!
-testWaitUntilClose	| semaphore marker |	semaphore := Semaphore new.	marker := false.	self		fork:			[semaphore signal.			[connectionB waitUntilClose.			marker := true]				ensure: [semaphore signal]].	semaphore wait.	self deny: marker.	connectionA close.	semaphore wait.	self assert: marker! !
+testWaitUntilClose	| semaphore marker |	semaphore := Semaphore new.	marker := false.	RsrProcessModel		fork:			[semaphore signal.			[connectionB waitUntilClose.			marker := true]				ensure: [semaphore signal]]		named: 'Pending Connection Closure'.	semaphore wait.	self deny: marker.	connectionA close.	semaphore wait.	self assert: marker! !
 
 !RsrSnapshotAnalysisTest methodsFor!
 testServiceAllDataObjects	"While this code is structurally similar to #testClientNoInstVars, it ensures	that Data Objects are actually encoded in-line."	| client analysis expected |	client := RsrRemoteAction clientClass new.	analysis := self analyze: client.	expected := OrderedCollection with: client.	self		assert: analysis snapshots size		equals: 1.	self assert: client isMirrored! !
@@ -1252,25 +1252,25 @@ testInternalConnectionSpecification! !
 port	^47652! !
 
 !RsrConnectionSpecificationTestCase methodsFor!
-testEstablishConnection	| acceptor initiator semaphore connectionA connectionB |	acceptor := RsrAcceptConnection port: self port.	initiator := RsrInitiateConnection		host: self localhost		port: self port.	semaphore := Semaphore new.	self		fork: [[connectionA := acceptor waitForConnection] ensure: [semaphore signal]];		fork: [[connectionB := initiator connect] ensure: [semaphore signal]].	semaphore wait; wait.	self		assert: connectionA isOpen;		assert: connectionB isOpen.	connectionA close.	connectionB close! !
+testEstablishConnection	| acceptor initiator semaphore connectionA connectionB |	acceptor := RsrAcceptConnection port: self port.	initiator := RsrInitiateConnection		host: self localhost		port: self port.	semaphore := Semaphore new.	RsrProcessModel		fork: [[connectionA := acceptor waitForConnection] ensure: [semaphore signal]] named: 'Pending AcceptConnection';		fork: [[connectionB := initiator connect] ensure: [semaphore signal]] named: 'Pending InitiateConnection'.	semaphore wait; wait.	self		assert: connectionA isOpen;		assert: connectionB isOpen.	connectionA close.	connectionB close! !
 
 !RsrConnectionSpecificationTestCase methodsFor!
 testInternalConnectionSpecificationConnectReturnsConnection	"Ensure that sending #connect to an InternalConnectionSpecification	results in returning one of the created Connections."	| spec connection |	spec := RsrInMemoryConnectionSpecification new.	connection := spec connect.	self assert: connection isOpen.	connection close.	spec := RsrInternalSocketConnectionSpecification new.	connection := spec connect.	self assert: connection isOpen.	connection close! !
 
 !RsrConnectionSpecificationTestCase methodsFor!
-testCancelWaitForConnection	| acceptor |	acceptor := RsrAcceptConnection port: self port.	self fork: [(Delay forSeconds: 1) wait. acceptor cancelWaitForConnection].	self		should: [acceptor waitForConnection]		raise: RsrWaitForConnectionCancelled! !
+testCancelWaitForConnection	| acceptor |	acceptor := RsrAcceptConnection port: self port.	RsrProcessModel		fork: [(Delay forSeconds: 1) wait. acceptor cancelWaitForConnection]		named: 'Canceling AcceptConnection'.	self		should: [acceptor waitForConnection]		raise: RsrWaitForConnectionCancelled! !
 
 !RsrConnectionSpecificationTestCase methodsFor!
 alternativeLocalhost	^'127.0.1.1'! !
 
 !RsrConnectionSpecificationTestCase methodsFor!
-testFailedAcceptOnAlternativeLocalhost	| acceptor initiator semaphore |	acceptor := RsrAcceptConnection		host: self alternativeLocalhost		port: self port.	initiator := RsrInitiateConnection		host: self localhost		port: self port.	semaphore := Semaphore new.	self fork: [[semaphore signal. acceptor waitForConnection] on: RsrWaitForConnectionCancelled do: [:ex | ex return]].	[semaphore wait.	self		should: [initiator connect]		raise: RsrSocketError]			ensure: [acceptor cancelWaitForConnection]! !
+testFailedAcceptOnAlternativeLocalhost	| acceptor initiator semaphore |	acceptor := RsrAcceptConnection		host: self alternativeLocalhost		port: self port.	initiator := RsrInitiateConnection		host: self localhost		port: self port.	semaphore := Semaphore new.	RsrProcessModel		fork: [[semaphore signal. acceptor waitForConnection] on: RsrWaitForConnectionCancelled do: [:ex | ex return]]		named: 'Pending WaitForConnectionCancelled'.	[semaphore wait.	self		should: [initiator connect]		raise: RsrSocketError]			ensure: [acceptor cancelWaitForConnection]! !
 
 !RsrConnectionSpecificationTestCase methodsFor!
 localhost	^'127.0.0.1'! !
 
 !RsrConnectionSpecificationTestCase methodsFor!
-testAcceptOnLocalhost	| acceptor initiator semaphore connectionA connectionB |	acceptor := RsrAcceptConnection		host: self localhost		port: self port.	initiator := RsrInitiateConnection		host: self localhost		port: self port.	semaphore := Semaphore new.	self		fork: [[connectionA := acceptor waitForConnection] ensure: [semaphore signal]];		fork: [[connectionB := initiator connect] ensure: [semaphore signal]].	semaphore wait; wait.	self		assert: connectionA isOpen;		assert: connectionB isOpen.	connectionA close.	connectionB close! !
+testAcceptOnLocalhost	| acceptor initiator semaphore connectionA connectionB |	acceptor := RsrAcceptConnection		host: self localhost		port: self port.	initiator := RsrInitiateConnection		host: self localhost		port: self port.	semaphore := Semaphore new.	RsrProcessModel		fork: [[connectionA := acceptor waitForConnection] ensure: [semaphore signal]] named: 'Pending AcceptConnection';		fork: [[connectionB := initiator connect] ensure: [semaphore signal]] named: 'Pending InitiateConnection'.	semaphore wait; wait.	self		assert: connectionA isOpen;		assert: connectionB isOpen.	connectionA close.	connectionB close! !
 
 !RsrReflectedVariableTestServiceB methodsFor!
 varB	^varB! !
@@ -1363,10 +1363,10 @@ privateVariable	^privateVariable! !
 privateVariable: anObject	privateVariable := anObject! !
 
 !RsrNullChannel methodsFor!
-close	"NOP"! !
+isConnected	^true! !
 
 !RsrNullChannel methodsFor!
-isOpen	^true! !
+close	"NOP"! !
 
 !RsrNullChannel methodsFor!
 open	"NOP"! !

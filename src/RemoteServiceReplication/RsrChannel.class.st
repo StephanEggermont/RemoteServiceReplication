@@ -40,7 +40,7 @@ RsrChannel >> genericError: anError [
 ]
 
 { #category : 'testing' }
-RsrChannel >> isOpen [
+RsrChannel >> isConnected [
 	"Report whether the Channel is open between Connections."
 
 	^self subclassResponsibility

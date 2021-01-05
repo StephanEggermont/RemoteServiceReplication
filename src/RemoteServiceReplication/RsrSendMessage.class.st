@@ -66,6 +66,7 @@ RsrSendMessage >> executeFor: aConnection [
 	selector := self selectorReference resolve: aConnection.
 	arguments := self argumentReferences collect: [ :each | 
 		             each resolve: aConnection ].
+	RsrProcessModel renameProcess: '', receiver class name, '>>', selector.
 	"receiver and arguments should now be the roots of the service graph, discard strong references."
 	servicesStrongly := nil.
 	resolver addRoot: receiver. "Ensure we always send back the receiver -- this ensures sending a message results in by-directional syncing."

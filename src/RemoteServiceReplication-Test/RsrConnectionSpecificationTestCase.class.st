@@ -33,9 +33,9 @@ RsrConnectionSpecificationTestCase >> testAcceptOnLocalhost [
 		host: self localhost
 		port: self port.
 	semaphore := Semaphore new.
-	self
-		fork: [[connectionA := acceptor waitForConnection] ensure: [semaphore signal]];
-		fork: [[connectionB := initiator connect] ensure: [semaphore signal]].
+	RsrProcessModel
+		fork: [[connectionA := acceptor waitForConnection] ensure: [semaphore signal]] named: 'Pending AcceptConnection';
+		fork: [[connectionB := initiator connect] ensure: [semaphore signal]] named: 'Pending InitiateConnection'.
 	semaphore wait; wait.
 	self
 		assert: connectionA isOpen;
@@ -49,7 +49,9 @@ RsrConnectionSpecificationTestCase >> testCancelWaitForConnection [
 
 	| acceptor |
 	acceptor := RsrAcceptConnection port: self port.
-	self fork: [(Delay forSeconds: 1) wait. acceptor cancelWaitForConnection].
+	RsrProcessModel
+		fork: [(Delay forSeconds: 1) wait. acceptor cancelWaitForConnection]
+		named: 'Canceling AcceptConnection'.
 	self
 		should: [acceptor waitForConnection]
 		raise: RsrWaitForConnectionCancelled
@@ -64,9 +66,9 @@ RsrConnectionSpecificationTestCase >> testEstablishConnection [
 		host: self localhost
 		port: self port.
 	semaphore := Semaphore new.
-	self
-		fork: [[connectionA := acceptor waitForConnection] ensure: [semaphore signal]];
-		fork: [[connectionB := initiator connect] ensure: [semaphore signal]].
+	RsrProcessModel
+		fork: [[connectionA := acceptor waitForConnection] ensure: [semaphore signal]] named: 'Pending AcceptConnection';
+		fork: [[connectionB := initiator connect] ensure: [semaphore signal]] named: 'Pending InitiateConnection'.
 	semaphore wait; wait.
 	self
 		assert: connectionA isOpen;
@@ -86,7 +88,9 @@ RsrConnectionSpecificationTestCase >> testFailedAcceptOnAlternativeLocalhost [
 		host: self localhost
 		port: self port.
 	semaphore := Semaphore new.
-	self fork: [[semaphore signal. acceptor waitForConnection] on: RsrWaitForConnectionCancelled do: [:ex | ex return]].
+	RsrProcessModel
+		fork: [[semaphore signal. acceptor waitForConnection] on: RsrWaitForConnectionCancelled do: [:ex | ex return]]
+		named: 'Pending WaitForConnectionCancelled'.
 	[semaphore wait.
 	self
 		should: [initiator connect]

@@ -26,18 +26,28 @@ RsrProcessModel class >> currentStackDump [
 ]
 
 { #category : 'managing-concurrency' }
-RsrProcessModel class >> fork: aBlock [
-
-	^self current fork: aBlock
-]
-
-{ #category : 'managing-concurrency' }
 RsrProcessModel class >> fork: aBlock
-at: aPriority [
+at: aPriority
+named: aString [
 
 	^self current
 		fork: aBlock
 		at: aPriority
+		named: aString
+]
+
+{ #category : 'managing-concurrency' }
+RsrProcessModel class >> fork: aBlock
+named: aString [
+
+	^self current fork: aBlock named: aString
+]
+
+{ #category : 'managing-concurrency' }
+RsrProcessModel class >> renameProcess: aString [
+	"Rename the current process to the provided string"
+
+	^self current renameProcess: aString
 ]
 
 { #category : 'accessing' }
@@ -47,14 +57,24 @@ RsrProcessModel class >> resetCurrent [
 ]
 
 { #category : 'managing-concurrency' }
-RsrProcessModel >> fork: aBlock [
+RsrProcessModel >> fork: aBlock
+at: aPriority
+named: aString [
 
-	^aBlock fork
+	[self renameProcess: aString.
+	aBlock value] forkAt: aPriority
 ]
 
 { #category : 'managing-concurrency' }
 RsrProcessModel >> fork: aBlock
-at: aPriority [
+named: aString [
 
-	^aBlock forkAt: aPriority
+	[self renameProcess: aString.
+	aBlock value] fork
+]
+
+{ #category : 'renaming' }
+RsrProcessModel >> renameProcess: aString [
+
+	Processor activeProcess name: aString
 ]

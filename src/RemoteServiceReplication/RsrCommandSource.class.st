@@ -1,6 +1,6 @@
 Class {
 	#name : 'RsrCommandSource',
-	#superclass : 'RsrSocketChannelLoop',
+	#superclass : 'RsrStreamChannelLoop',
 	#instVars : [
 		'decoder'
 	],
@@ -27,8 +27,21 @@ RsrCommandSource >> executeCycle [
 			self channel channelDisconnected]
 ]
 
+{ #category : 'accessing' }
+RsrCommandSource >> inStream [
+	"Return the read stream associated w/ this channel."
+
+	^self channel inStream
+]
+
 { #category : 'commands' }
 RsrCommandSource >> nextCommand [
 
-	^self decoder decodeCommand: self stream
+	^self decoder decodeCommand: self inStream
+]
+
+{ #category : 'accessing' }
+RsrCommandSource >> runLoopName [
+
+	^'Connection Reading'
 ]

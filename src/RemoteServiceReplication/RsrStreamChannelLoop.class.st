@@ -6,7 +6,7 @@ Object
 
 "
 Class {
-	#name : 'RsrSocketChannelLoop',
+	#name : 'RsrStreamChannelLoop',
 	#superclass : 'RsrObject',
 	#instVars : [
 		'process',
@@ -17,7 +17,7 @@ Class {
 }
 
 { #category : 'instance creation' }
-RsrSocketChannelLoop class >> on: aChannel [
+RsrStreamChannelLoop class >> on: aChannel [
 
 	^self new
 		channel: aChannel;
@@ -25,44 +25,44 @@ RsrSocketChannelLoop class >> on: aChannel [
 ]
 
 { #category : 'accessing' }
-RsrSocketChannelLoop >> channel [
+RsrStreamChannelLoop >> channel [
 
 	^channel
 ]
 
 { #category : 'accessing' }
-RsrSocketChannelLoop >> channel: aChannel [
+RsrStreamChannelLoop >> channel: aChannel [
 
 	channel := aChannel
 ]
 
 { #category : 'running' }
-RsrSocketChannelLoop >> executeCycle [
+RsrStreamChannelLoop >> executeCycle [
 
 	self subclassResponsibility
 ]
 
 { #category : 'initialization' }
-RsrSocketChannelLoop >> initialize [
+RsrStreamChannelLoop >> initialize [
 
 	super initialize.
 	state := self stoppedState
 ]
 
 { #category : 'testing' }
-RsrSocketChannelLoop >> isActive [
+RsrStreamChannelLoop >> isActive [
 
 	^state == self runningState
 ]
 
 { #category : 'testing' }
-RsrSocketChannelLoop >> isProcessActive [
+RsrStreamChannelLoop >> isProcessActive [
 
 	^process ~~ nil
 ]
 
 { #category : 'running' }
-RsrSocketChannelLoop >> log [
+RsrStreamChannelLoop >> log [
 
 	^RsrLogWithPrefix
 		prefix: self class name asString
@@ -70,31 +70,31 @@ RsrSocketChannelLoop >> log [
 ]
 
 { #category : 'running' }
-RsrSocketChannelLoop >> log: aString [
+RsrStreamChannelLoop >> log: aString [
 
 	self log debug: aString
 ]
 
 { #category : 'accessing' }
-RsrSocketChannelLoop >> priority [
+RsrStreamChannelLoop >> priority [
 
 	^Processor lowIOPriority
 ]
 
 { #category : 'running' }
-RsrSocketChannelLoop >> report: aCommand [
+RsrStreamChannelLoop >> report: aCommand [
 
 	aCommand reportOn: self log
 ]
 
 { #category : 'running' }
-RsrSocketChannelLoop >> reportException: anException [
+RsrStreamChannelLoop >> reportException: anException [
 
 	self log: anException description
 ]
 
 { #category : 'running' }
-RsrSocketChannelLoop >> runLoop [
+RsrStreamChannelLoop >> runLoop [
 
 	[self isActive]
 		whileTrue:
@@ -107,36 +107,39 @@ RsrSocketChannelLoop >> runLoop [
 ]
 
 { #category : 'accessing' }
-RsrSocketChannelLoop >> runningState [
+RsrStreamChannelLoop >> runLoopName [
+	"Return the name of the associated run loop.
+	This name is assigned to the Process used to execute the run loop."
+
+	^self subclassResponsibility
+]
+
+{ #category : 'accessing' }
+RsrStreamChannelLoop >> runningState [
 
 	^#Running
 ]
 
 { #category : 'commands' }
-RsrSocketChannelLoop >> start [
+RsrStreamChannelLoop >> start [
 
 	state := self runningState.
 	process := RsrProcessModel
 		fork: [self runLoop.
 				process := nil]
 		at: self priority
+		named: self runLoopName
 ]
 
 { #category : 'commands' }
-RsrSocketChannelLoop >> stop [
+RsrStreamChannelLoop >> stop [
 
 	self isActive ifFalse: [^self].
 	state := self stoppedState
 ]
 
 { #category : 'accessing' }
-RsrSocketChannelLoop >> stoppedState [
+RsrStreamChannelLoop >> stoppedState [
 
 	^#Stop
-]
-
-{ #category : 'accessing' }
-RsrSocketChannelLoop >> stream [
-
-	^self channel stream
 ]

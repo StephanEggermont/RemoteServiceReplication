@@ -9,7 +9,7 @@ RsrTestingProcessModelTestCase >> exceptionCase [
 
 	| sema |
 	sema := Semaphore new.
-	RsrProcessModel fork: [[Error signal] ensure: [sema signal]].
+	RsrProcessModel fork: [[Error signal] ensure: [sema signal]] ensure: 'Ensure w/ signal'.
 	sema wait
 ]
 
@@ -18,7 +18,7 @@ RsrTestingProcessModelTestCase >> noExceptionCase [
 
 	| sema |
 	sema := Semaphore new.
-	RsrProcessModel fork: [sema signal].
+	RsrProcessModel fork: [sema signal] named: 'Signal Semaphore'.
 	sema wait
 ]
 

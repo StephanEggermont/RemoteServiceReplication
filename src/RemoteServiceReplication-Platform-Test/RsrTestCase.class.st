@@ -41,12 +41,6 @@ identicalTo: bObject [
 ]
 
 { #category : 'utilities' }
-RsrTestCase >> fork: aBlock [
-
-	^RsrProcessModel fork: aBlock
-]
-
-{ #category : 'utilities' }
 RsrTestCase >> hack: aString [
 	"Placeholder for things that need to be fixed"
 ]

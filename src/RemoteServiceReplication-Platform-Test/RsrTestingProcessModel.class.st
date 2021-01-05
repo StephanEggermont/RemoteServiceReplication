@@ -8,18 +8,23 @@ Class {
 }
 
 { #category : 'managing-concurrency' }
-RsrTestingProcessModel >> fork: aBlock [
-
-	^super fork: (self protect: aBlock)
-]
-
-{ #category : 'managing-concurrency' }
 RsrTestingProcessModel >> fork: aBlock
-at: aPriority [
+at: aPriority
+named: aString [
 
 	^super
 		fork: (self protect: aBlock)
 		at: aPriority
+		named: aString
+]
+
+{ #category : 'managing-concurrency' }
+RsrTestingProcessModel >> fork: aBlock
+named: aString [
+
+	^super
+		fork: (self protect: aBlock)
+		named: aString
 ]
 
 { #category : 'accessing' }

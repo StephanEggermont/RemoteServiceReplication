@@ -138,7 +138,7 @@ defaultTimeLimit	"This is needed for Pharo"	^5 seconds! !
 deferClose: aSocket	sockets add: aSocket.	^aSocket! !
 
 !RsrSocketTestCase methodsFor!
-testCloseDuringAccept	| listener |	listener := self newSocket.	listener		bindAddress: '127.0.0.1'		port: 45300.	listener listen: 1.	self fork: [(Delay forSeconds: 1) wait. listener close].	self		should: [listener accept]		raise: RsrSocketError! !
+testCloseDuringAccept	| listener |	listener := self newSocket.	listener		bindAddress: '127.0.0.1'		port: 45300.	listener listen: 1.	RsrProcessModel		fork: [(Delay forSeconds: 1) wait. listener close]		named: 'Pending Socket Close'.	self		should: [listener accept]		raise: RsrSocketError! !
 
 !RsrSocketTestCase methodsFor!
 tearDown	sockets do: [:each | each close].	super tearDown! !
@@ -174,7 +174,7 @@ testAcceptConnects	| listener client server |	listener := self newSocket.	li
 testFailedConnects	| socket |	socket := self newSocket.	self deny: socket isConnected.	self		should:			[socket				connectToHost: 'do.no.create.used.for.testing.gemtalksystems.com'				port: 80]		raise: RsrConnectFailed.	socket := self newSocket.	self		should:			[socket				connectToHost: 'gemtalksystems.com'				port: 70000]		raise: RsrConnectFailed.	socket := self newSocket.	self		should:			[socket				connectToHost: '127.0.0.1'				port: 79]		raise: RsrConnectFailed.	socket close! !
 
 !RsrSocketTestCase methodsFor!
-createPair: aBlock	| address port listener peerA peerB semaphore |	address := '127.0.0.1'.	port := 45301.	listener := self newSocket.	listener		bindAddress: address		port: port.	listener listen: 1.	peerB := self newSocket.	semaphore := Semaphore new.	self		fork: 			[[peerA := self deferClose: listener accept] ensure: [semaphore signal]];		fork:			[[peerB connectToHost: address port: port] ensure: [semaphore signal]].	semaphore wait; wait.	listener close.	((peerA notNil and: [peerA isConnected]) and: [peerB isConnected])		ifTrue: [aBlock value: peerA value: peerB]		ifFalse: [self error: 'Unable to create Socket Pair']! !
+createPair: aBlock	| address port listener peerA peerB semaphore |	address := '127.0.0.1'.	port := 45301.	listener := self newSocket.	listener		bindAddress: address		port: port.	listener listen: 1.	peerB := self newSocket.	semaphore := Semaphore new.	RsrProcessModel		fork: [[peerA := self deferClose: listener accept] ensure: [semaphore signal]]		named: 'Pending Socket Accept'.	RsrProcessModel		fork: [[peerB connectToHost: address port: port] ensure: [semaphore signal]]		named: 'Pending Socket Connect'.	semaphore wait; wait.	listener close.	((peerA notNil and: [peerA isConnected]) and: [peerB isConnected])		ifTrue: [aBlock value: peerA value: peerB]		ifFalse: [self error: 'Unable to create Socket Pair']! !
 
 !RsrSocketTestCase methodsFor!
 testReadWrite	| peerA peerB writeBuffer readBuffer count numWritten numRead |	self		createPair:			[:a :b |			peerA := a.			peerB := b].	count := 1024.	writeBuffer := ByteArray new: count.	1		to: count		do: [:i | writeBuffer at: i put: (i \\ 256)].	readBuffer := ByteArray withAll: writeBuffer.	numWritten := peerA		write: count		from: writeBuffer		startingAt: 1.	self		assert: numWritten		equals: count.	numRead := peerB		read: count		into: readBuffer		startingAt: 1.	self		assert: numRead		equals: count.	self		assert: readBuffer		equals: writeBuffer! !
@@ -189,28 +189,28 @@ testSuccessfulConnect	| socket |	socket := self newSocket.	self deny: socket
 setUp	super setUp.	sockets := OrderedCollection new! !
 
 !RsrTestingProcessModel methodsFor!
-forkedException	^forkedException! !
-
-!RsrTestingProcessModel methodsFor!
 protect: aBlock	^[aBlock on: Error do: [:ex | forkedException := ex copy. ex return]]! !
 
 !RsrTestingProcessModel methodsFor!
-fork: aBlockat: aPriority	^super		fork: (self protect: aBlock)		at: aPriority! !
+fork: aBlockat: aPrioritynamed: aString	^super		fork: (self protect: aBlock)		at: aPriority		named: aString! !
 
 !RsrTestingProcessModel methodsFor!
-fork: aBlock	^super fork: (self protect: aBlock)! !
+fork: aBlocknamed: aString	^super		fork: (self protect: aBlock)		named: aString! !
+
+!RsrTestingProcessModel methodsFor!
+forkedException	^forkedException! !
 
 !RsrTestingProcessModelTestCase methodsFor!
 testCurrentStackDump	| stack |	stack := RsrProcessModel currentStackDump.	self		assert: stack isString;		assert: stack size > 0! !
 
 !RsrTestingProcessModelTestCase methodsFor!
-exceptionCase	| sema |	sema := Semaphore new.	RsrProcessModel fork: [[Error signal] ensure: [sema signal]].	sema wait! !
+exceptionCase	| sema |	sema := Semaphore new.	RsrProcessModel fork: [[Error signal] ensure: [sema signal]] ensure: 'Ensure w/ signal'.	sema wait! !
 
 !RsrTestingProcessModelTestCase methodsFor!
 testNoException	| testCase |	testCase := self class selector: #noExceptionCase.	self		shouldnt: [testCase runCase]		raise: Exception! !
 
 !RsrTestingProcessModelTestCase methodsFor!
-noExceptionCase	| sema |	sema := Semaphore new.	RsrProcessModel fork: [sema signal].	sema wait! !
+noExceptionCase	| sema |	sema := Semaphore new.	RsrProcessModel fork: [sema signal] named: 'Signal Semaphore'.	sema wait! !
 
 !RsrTestingProcessModelTestCase methodsFor!
 testException	| testCase |	testCase := self class selector: #exceptionCase.	self		should: [testCase runCase]		raise: Exception! !
@@ -273,13 +273,10 @@ assert: anObjectidenticalTo: bObject	self assert: anObject == bObject! !
 shortWait	(Delay forMilliseconds: 100) wait! !
 
 !RsrTestCase methodsFor!
-fork: aBlock	^RsrProcessModel fork: aBlock! !
+deny: anObjectidenticalTo: bObject	self assert: anObject ~~ bObject! !
 
 !RsrTestCase methodsFor!
 assumption: aString	"This method serves as a marker for assumptions made in the tests.	Perhaps some of the senders can be removed in the future."! !
-
-!RsrTestCase methodsFor!
-deny: anObjectidenticalTo: bObject	self assert: anObject ~~ bObject! !
 
 !RsrTestCase methodsFor!
 maximumReclamation	self assert: RsrGarbageCollector maximumReclamation! !

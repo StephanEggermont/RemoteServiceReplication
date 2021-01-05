@@ -123,8 +123,8 @@ RsrPromise >> notifyActions [
 		do:
 			[:each |
 			self isFulfilled
-				ifTrue: [RsrProcessModel fork: [each when value: value]]
-				ifFalse: [RsrProcessModel fork: [each catch value: value]]]
+				ifTrue: [RsrProcessModel fork: [each when value: value] named: 'Promise Fulfillment Notification']
+				ifFalse: [RsrProcessModel fork: [each catch value: value] named: 'Promise Break Notification']]
 ]
 
 { #category : 'observing' }

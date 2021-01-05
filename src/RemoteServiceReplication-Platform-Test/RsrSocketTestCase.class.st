@@ -26,11 +26,12 @@ RsrSocketTestCase >> createPair: aBlock [
 	listener listen: 1.
 	peerB := self newSocket.
 	semaphore := Semaphore new.
-	self
-		fork: 
-			[[peerA := self deferClose: listener accept] ensure: [semaphore signal]];
-		fork:
-			[[peerB connectToHost: address port: port] ensure: [semaphore signal]].
+	RsrProcessModel
+		fork: [[peerA := self deferClose: listener accept] ensure: [semaphore signal]]
+		named: 'Pending Socket Accept'.
+	RsrProcessModel
+		fork: [[peerB connectToHost: address port: port] ensure: [semaphore signal]]
+		named: 'Pending Socket Connect'.
 	semaphore wait; wait.
 	listener close.
 	((peerA notNil and: [peerA isConnected]) and: [peerB isConnected])
@@ -117,7 +118,9 @@ RsrSocketTestCase >> testCloseDuringAccept [
 		bindAddress: '127.0.0.1'
 		port: 45300.
 	listener listen: 1.
-	self fork: [(Delay forSeconds: 1) wait. listener close].
+	RsrProcessModel
+		fork: [(Delay forSeconds: 1) wait. listener close]
+		named: 'Pending Socket Close'.
 	self
 		should: [listener accept]
 		raise: RsrSocketError

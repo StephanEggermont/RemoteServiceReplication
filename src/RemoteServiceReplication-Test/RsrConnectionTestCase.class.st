@@ -16,12 +16,13 @@ RsrConnectionTestCase >> testWaitUntilClose [
 	| semaphore marker |
 	semaphore := Semaphore new.
 	marker := false.
-	self
+	RsrProcessModel
 		fork:
 			[semaphore signal.
 			[connectionB waitUntilClose.
 			marker := true]
-				ensure: [semaphore signal]].
+				ensure: [semaphore signal]]
+		named: 'Pending Connection Closure'.
 	semaphore wait.
 	self deny: marker.
 	connectionA close.

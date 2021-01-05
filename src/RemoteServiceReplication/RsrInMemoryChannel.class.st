@@ -73,7 +73,7 @@ RsrInMemoryChannel >> inQueue: aSharedQueue [
 ]
 
 { #category : 'testing' }
-RsrInMemoryChannel >> isOpen [
+RsrInMemoryChannel >> isConnected [
 
 	^drainProcess isNil not
 ]
@@ -81,7 +81,9 @@ RsrInMemoryChannel >> isOpen [
 { #category : 'lifecycle' }
 RsrInMemoryChannel >> open [
 
-	drainProcess := RsrProcessModel fork: [self drainLoop. drainProcess := nil]
+	drainProcess := RsrProcessModel
+		fork: [self drainLoop. drainProcess := nil]
+		named: 'InMemoryChannel Receiving'
 ]
 
 { #category : 'accessing' }

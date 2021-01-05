@@ -524,7 +524,10 @@ typeIdentifier	^9! !
 currentStackDump	^self current currentStackDump! !
 
 !RsrProcessModel class methodsFor!
-fork: aBlock	^self current fork: aBlock! !
+fork: aBlockat: aPrioritynamed: aString	^self current		fork: aBlock		at: aPriority		named: aString! !
+
+!RsrProcessModel class methodsFor!
+renameProcess: aString	"Rename the current process to the provided string"	^self current renameProcess: aString! !
 
 !RsrProcessModel class methodsFor!
 current	^current ifNil: [self resetCurrent]! !
@@ -533,10 +536,10 @@ current	^current ifNil: [self resetCurrent]! !
 resetCurrent	^current := self new! !
 
 !RsrProcessModel class methodsFor!
-current: concurrency	current := concurrency! !
+fork: aBlocknamed: aString	^self current fork: aBlock named: aString! !
 
 !RsrProcessModel class methodsFor!
-fork: aBlockat: aPriority	^self current		fork: aBlock		at: aPriority! !
+current: concurrency	current := concurrency! !
 
 !RsrImmediateReference class methodsFor!
 analyze: anObjectusing: anAnalyzer	^anAnalyzer analyzeImmediate: anObject! !
@@ -704,10 +707,13 @@ resolve: aConnection	^Character codePoint: intermediate! !
 encode: aStreamusing: anEncoder	anEncoder		encodeControlWord: anEncoder immediateOID		onto: aStream.	anEncoder		encodeControlWord: self typeIdentifier		onto: aStream.	anEncoder		encodeControlWord: intermediate		onto: aStream! !
 
 !RsrProcessModel methodsFor!
-fork: aBlockat: aPriority	^aBlock forkAt: aPriority! !
+fork: aBlocknamed: aString	[self renameProcess: aString.	aBlock value] fork! !
 
 !RsrProcessModel methodsFor!
-fork: aBlock	^aBlock fork! !
+fork: aBlockat: aPrioritynamed: aString	[self renameProcess: aString.	aBlock value] forkAt: aPriority! !
+
+!RsrProcessModel methodsFor!
+renameProcess: aString	Processor activeProcess name: aString! !
 
 !RsrAlreadyRegistered methodsFor!
 service	^service! !

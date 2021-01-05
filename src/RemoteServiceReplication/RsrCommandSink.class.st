@@ -8,7 +8,7 @@ Object
 "
 Class {
 	#name : 'RsrCommandSink',
-	#superclass : 'RsrSocketChannelLoop',
+	#superclass : 'RsrStreamChannelLoop',
 	#instVars : [
 		'queue'
 	],
@@ -35,7 +35,7 @@ RsrCommandSink >> executeCycle [
 	command == self stopToken
 		ifTrue: [^self].
 	self writeCommand: command.
-	(queue size = 0)
+	(queue size = 0) "Dolphin does not support #isEmpty"
 		ifTrue: [self flush]]
 		on: RsrSocketClosed
 		do:
@@ -47,7 +47,7 @@ RsrCommandSink >> executeCycle [
 { #category : 'commands' }
 RsrCommandSink >> flush [
 
-	self stream flush
+	self outStream flush
 ]
 
 { #category : 'initialization' }
@@ -55,6 +55,18 @@ RsrCommandSink >> initialize [
 
 	super initialize.
 	queue := SharedQueue new
+]
+
+{ #category : 'accessing' }
+RsrCommandSink >> outStream [
+
+	^self channel outStream
+]
+
+{ #category : 'accessing' }
+RsrCommandSink >> runLoopName [
+
+	^'Connection Writing'
 ]
 
 { #category : 'commands' }
@@ -73,7 +85,7 @@ RsrCommandSink >> stopToken [
 { #category : 'writing' }
 RsrCommandSink >> write: aByteArray [
 
-	self stream nextPutAll: aByteArray
+	self outStream nextPutAll: aByteArray
 ]
 
 { #category : 'writing' }
@@ -81,6 +93,6 @@ RsrCommandSink >> writeCommand: aCommand [
 
 	self report: aCommand.
 	aCommand
-		encode: self stream
+		encode: self outStream
 		using: self encoder
 ]

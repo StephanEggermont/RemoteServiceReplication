@@ -14,7 +14,7 @@ RsrNullChannel >> close [
 ]
 
 { #category : 'testing' }
-RsrNullChannel >> isOpen [
+RsrNullChannel >> isConnected [
 
 	^true
 ]

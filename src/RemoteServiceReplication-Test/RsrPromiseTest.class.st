@@ -97,8 +97,12 @@ RsrPromiseTest >> testSyncBreak [
 	promise := RsrPromise new.
 	expected := Object new.
 	exceptionRaised := false.
-	self fork: [[promise wait] on: RsrBrokenPromise do: [:ex | exceptionRaised := true. first := ex reason. ex return]].
-	self fork: [[promise wait] on: RsrBrokenPromise do: [:ex | exceptionRaised := true. second := ex reason. ex return]].
+	RsrProcessModel
+		fork: [[promise wait] on: RsrBrokenPromise do: [:ex | exceptionRaised := true. first := ex reason. ex return]]
+		named: 'Pending BrokenPromise'.
+	RsrProcessModel
+		fork: [[promise wait] on: RsrBrokenPromise do: [:ex | exceptionRaised := true. second := ex reason. ex return]]
+		named: 'Pending BrokenPromise'.
 	promise break: expected.
 	self shortWait. "Allow results to process."
 	self assert: exceptionRaised.
@@ -126,8 +130,12 @@ RsrPromiseTest >> testSyncFulfill [
 	promise := RsrPromise new.
 	expected := Object new.
 	exceptionRaised := false.
-	self fork: [[first := promise wait] on: RsrBrokenPromise do: [:ex | exceptionRaised := true. ex return]].
-	self fork: [[second := promise wait] on: RsrBrokenPromise do: [:ex | exceptionRaised := true. ex return]].
+	RsrProcessModel
+		fork: [[first := promise wait] on: RsrBrokenPromise do: [:ex | exceptionRaised := true. ex return]]
+		named: 'Pending BrokenPromise'.
+	RsrProcessModel
+		fork: [[second := promise wait] on: RsrBrokenPromise do: [:ex | exceptionRaised := true. ex return]]
+		named: 'Pending BrokenPromise'.
 	promise fulfill: expected.
 	self shortWait. "Allow results to process."
 	self deny: exceptionRaised.

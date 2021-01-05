@@ -26,7 +26,9 @@ RsrInitiateConnection >> connect [
 	stream := RsrSocketStream on: socket.
 	handshake := RsrClientHandshake over: stream.
 	handshake perform.
-	channel := RsrSocketChannel socket: socket.
+	channel := RsrBinaryStreamChannel
+		inStream: stream
+		outStream: stream.
 	connection := RsrConnection
 		specification: self
 		channel: channel

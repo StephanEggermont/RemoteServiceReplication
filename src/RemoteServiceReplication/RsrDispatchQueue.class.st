@@ -61,7 +61,9 @@ RsrDispatchQueue >> start [
 	"Start processing queued events."
 
 	isRunning := true.
-	process := RsrProcessModel fork: [self runLoop]
+	process := RsrProcessModel
+		fork: [self runLoop]
+		named: 'DispatchQueue run loop'
 ]
 
 { #category : 'lifecycle' }

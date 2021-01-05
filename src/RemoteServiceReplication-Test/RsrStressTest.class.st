@@ -38,7 +38,7 @@ RsrStressTest >> concurrentlyRun: aBlock [
 	| anyCurtailed semaphores |
 	anyCurtailed := false.
 	semaphores := (1 to: self numThreads) collect: [:each | Semaphore new].
-	semaphores do: [:semaphore | RsrProcessModel fork: [[self repeatedlyRun: aBlock. semaphore signal] ifCurtailed: [anyCurtailed := true. semaphore signal]]].
+	semaphores do: [:semaphore | RsrProcessModel fork: [[self repeatedlyRun: aBlock. semaphore signal] ifCurtailed: [anyCurtailed := true. semaphore signal]] named: 'Concurrent Test Thread'].
 	semaphores do: [:semaphore | semaphore wait].
 	self deny: anyCurtailed
 ]
