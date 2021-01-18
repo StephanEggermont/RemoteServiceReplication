@@ -20,7 +20,7 @@ RsrSocket class >> _nativeSocket: aGsSignalingSocket [
 RsrSocket >> _nativeSocket: aGsSignalingSocket [
 	"Private - Configure w/ a platform socket"
 
-	nativeSocket := aGsSignalingSocket
+	nativeSocket := aGsSignalingSocket interrupting: true; yourself
 ]
 
 { #category : 'accepting connections' }
