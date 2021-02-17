@@ -1,6 +1,8 @@
-RwSimpleProjectLoadComponentV2 {
+RwPlatformNestedProjectLoadComponentV2 {
 	#name : 'gemstone/RemoteServiceReplication',
-	#condition : 'gemstone',
+	#condition : [
+		'gs3.[7-]'
+	],
 	#projectNames : [ ],
 	#componentNames : [ ],
 	#packageNames : [

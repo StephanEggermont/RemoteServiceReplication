@@ -1,7 +1,9 @@
 RwSimpleProjectLoadComponentV2 {
 	#name : 'RemoteServiceReplication',
 	#condition : 'common',
-	#projectNames : [ ],
+	#projectNames : [
+		'Announcements'
+	],
 	#componentNames : [
 		'gemstone/RemoteServiceReplication',
 		'tests/RemoteServiceReplication'
