@@ -1,6 +1,10 @@
-Extension { #name : 'RsrUnhandledException' }
+Class {
+	#name : 'RsrUnhandledException',
+	#superclass : 'Exception',
+	#category : 'RemoteServiceReplication-GemStone'
+}
 
-{ #category : '*remoteservicereplication-gemstone' }
+{ #category : 'default' }
 RsrUnhandledException >> defaultAction [
 	"Return an error to the controlling GCI or other debugger."
 
