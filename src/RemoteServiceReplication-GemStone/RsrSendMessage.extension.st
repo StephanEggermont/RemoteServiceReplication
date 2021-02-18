@@ -6,7 +6,7 @@ RsrSendMessage >> _registerDebugActionHandler [
 		debugActionHandler: [ :ex | RsrUnhandledException signal: ex ]
 ]
 
-{ #category : 'accessing' }
+{ #category : '*remoteservicereplication-gemstone' }
 RsrSendMessage >> unhandledExceptionClass [
 	^ RsrUnhandledException
 ]

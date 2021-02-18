@@ -161,10 +161,3 @@ RsrSendMessage >> selectorReference: aSymbolReference [
 
 	selectorReference := aSymbolReference
 ]
-
-{ #category : 'accessing' }
-RsrSendMessage >> unhandledExceptionClass [
-	"Temporarily, use Error until we have appropriate GemStone hooks."
-
-	^Error
-]
