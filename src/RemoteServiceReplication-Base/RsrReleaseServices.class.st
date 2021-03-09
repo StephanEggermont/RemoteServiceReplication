@@ -12,7 +12,7 @@ Class {
 	#instVars : [
 		'sids'
 	],
-	#category : 'RemoteServiceReplication'
+	#category : 'RemoteServiceReplication-Base'
 }
 
 { #category : 'instance creation' }

@@ -5,7 +5,7 @@ Class {
 		'snapshots',
 		'transaction'
 	],
-	#category : 'RemoteServiceReplication'
+	#category : 'RemoteServiceReplication-Base'
 }
 
 { #category : 'executing' }

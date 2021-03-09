@@ -1,19 +1,4 @@
-"
-No class-specific documentation for RsrDeliverResponse, hierarchy is:
-Object
-  RsrObject
-    RsrCommand( encoding)
-      RsrDeliverResponse( transaction response roots retainList)
-
-"
-Class {
-	#name : 'RsrDeliverResponse',
-	#superclass : 'RsrMessagingCommand',
-	#instVars : [
-		'responseReference'
-	],
-	#category : 'RemoteServiceReplication'
-}
+Extension { #name : 'RsrDeliverResponse' }
 
 { #category : '*RemoteServiceReplication' }
 RsrDeliverResponse >> executeFor: aConnection [

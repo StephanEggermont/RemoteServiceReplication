@@ -1,21 +1,4 @@
-"
-No class-specific documentation for RsrSendMessage, hierarchy is:
-Object
-  RsrObject
-    RsrCommand( encoding)
-      RsrSendMessage( transaction receiver selector arguments retainList)
-
-"
-Class {
-	#name : 'RsrSendMessage',
-	#superclass : 'RsrMessagingCommand',
-	#instVars : [
-		'receiverReference',
-		'selectorReference',
-		'argumentReferences'
-	],
-	#category : 'RemoteServiceReplication'
-}
+Extension { #name : 'RsrSendMessage' }
 
 { #category : '*RemoteServiceReplication' }
 RsrSendMessage >> executeFor: aConnection [

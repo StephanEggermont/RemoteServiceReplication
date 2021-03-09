@@ -1,6 +1,6 @@
 Extension { #name : 'RsrSendMessage' }
 
-{ #category : '*remoteservicereplication-pharo' }
+{ #category : '*RemoteServiceReplication-Pharo' }
 RsrSendMessage >> unhandledExceptionClass [
 	^ Error
 ]
